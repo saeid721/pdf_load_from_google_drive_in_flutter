@@ -134,8 +134,8 @@ class HomeScreen extends StatelessWidget {
                               Get.to(() => const UrlPdf());
                             },
                             imageUrl: trendingBooks.imageUrl,
-                            title: 'Recommended Book',
-                            subTitle: 'Book Author Name',
+                            title: 'স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড',
+                            subTitle: 'পিনাকী ভট্টাচার্য',
                           );
                         }).toList(),
                       ),

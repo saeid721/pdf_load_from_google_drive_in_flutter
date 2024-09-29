@@ -21,7 +21,7 @@ class RecommendedBookListWidget extends StatelessWidget {
     this.borderColor = ColorRes.borderColor, // Default border color
     this.backgroundColor = ColorRes.white, // Default background color
     this.imageUrl, // Image URL
-    this.imageSize = 140.0, // Default image size
+    this.imageSize = 120.0, // Default image size
     super.key,
   });
 
@@ -46,7 +46,7 @@ class RecommendedBookListWidget extends StatelessWidget {
                   bottomLeft: Radius.circular(15.0),
                 ),
                 child: Container(
-                  width: 60,
+                  width: 50,
                   height: 100,
                   decoration: BoxDecoration(
                     color: backgroundColor,
