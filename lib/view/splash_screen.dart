@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'home_screen.dart';
 import 'splash_screen/custom_background_widget.dart';
+import 'widget/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -38,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: ColorRes.primaryColor,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -48,7 +49,7 @@ class SplashScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: ColorRes.textColor,
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -58,7 +59,7 @@ class SplashScreen extends StatelessWidget {
                     Get.to(() => const HomeScreen());
                   },
                   style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), backgroundColor: Colors.black,
+                    shape: const CircleBorder(), backgroundColor: ColorRes.primaryColor,
                     padding: const EdgeInsets.all(20), // Button color
                   ),
                   child: const Icon(

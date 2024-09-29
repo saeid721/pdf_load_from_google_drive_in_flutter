@@ -3,10 +3,10 @@ import 'package:pdf_viewer/view/widget/colors.dart';
 
 class RecommendedBookListWidget extends StatelessWidget {
   final VoidCallback onTap;
-  final String title; // Changed to optional
-  final String subTitle; // Changed to optional
-  final Color titleColor; // Dynamic title color
-  final Color subTitleColor; // Dynamic title color
+  final String bookName; // Changed to optional
+  final String authorName; // Changed to optional
+  final Color bookNameColor; // Dynamic title color
+  final Color authorNameColor; // Dynamic title color
   final Color borderColor; // Dynamic border color
   final Color backgroundColor;
   final String? imageUrl; // Optional image URL
@@ -14,10 +14,10 @@ class RecommendedBookListWidget extends StatelessWidget {
 
   const RecommendedBookListWidget({
     required this.onTap,
-    required this.title, // Changed to optional
-    required this.subTitle, // Changed to optional
-    this.titleColor = ColorRes.primaryColor, // Default title color
-    this.subTitleColor = ColorRes.textColor, // Default title color
+    required this.bookName, // Changed to optional
+    required this.authorName, // Changed to optional
+    this.bookNameColor = ColorRes.primaryColor, // Default title color
+    this.authorNameColor = ColorRes.textColor, // Default title color
     this.borderColor = ColorRes.borderColor, // Default border color
     this.backgroundColor = ColorRes.white, // Default background color
     this.imageUrl, // Image URL
@@ -74,19 +74,19 @@ class RecommendedBookListWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      bookName,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: titleColor,
+                        color: bookNameColor,
                       ),
                     ),
                     Text(
-                      subTitle,
+                      authorName,
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: subTitleColor,
+                        color: authorNameColor,
                       ),
                     ),
                   ],

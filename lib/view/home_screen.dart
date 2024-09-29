@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdf_viewer/view/url_pdf.dart';
 import 'package:pdf_viewer/view/widget/colors.dart';
+import '../books_list/recommended_books_list.dart';
 import '../books_list/trending_books_list.dart';
 import '../controller/pdf_controller.dart';
 import 'side_ber_menu_screen.dart';
@@ -127,15 +128,15 @@ class HomeScreen extends StatelessWidget {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
-                        children: trendingBooks.map((trendingBooks) {
+                        children: recommendedBooks.map((recommendedBooks) {
                           return RecommendedBookListWidget(
                             onTap: () {
-                              pdfController.setPdfUrl(trendingBooks.pdfUrl);
+                              pdfController.setPdfUrl(recommendedBooks.pdfUrl);
                               Get.to(() => const UrlPdf());
                             },
-                            imageUrl: trendingBooks.imageUrl,
-                            title: 'স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড',
-                            subTitle: 'পিনাকী ভট্টাচার্য',
+                            imageUrl: recommendedBooks.imageUrl,
+                            bookName: recommendedBooks.bookName,
+                            authorName: recommendedBooks.authorName,
                           );
                         }).toList(),
                       ),

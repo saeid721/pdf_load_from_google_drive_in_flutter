@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-
 import 'colors.dart';
 
 class TrendingBooksListWidget extends StatelessWidget {
   final VoidCallback onTap;
-  final String? title; // Changed to optional
-  final Color titleColor; // Dynamic title color
+  final String? bookName; // Changed to optional
+  final String? authorName; // Changed to optional
+  final Color? bookNameColor; // Dynamic title color
+  final Color? authorNameColor; // Dynamic title color
   final Color borderColor; // Dynamic border color
   final Color backgroundColor;
   final String? imageUrl; // Optional image URL
-  final double imageSize; // Image size
+  final double imageSize; // Image sizeImage size
 
   const TrendingBooksListWidget({
     required this.onTap,
-    this.title, // Changed to optional
-    this.titleColor = ColorRes.primaryColor, // Default title color
+    this.bookName, // Changed to optional
+    this.authorName, // Changed to optional
+    this.bookNameColor = ColorRes.primaryColor, // Default title color
+    this.authorNameColor = ColorRes.textColor, // Default title color
     this.borderColor = ColorRes.borderColor, // Default border color
     this.backgroundColor = ColorRes.white, // Default background color
     this.imageUrl, // Image URL
-    this.imageSize = 140.0, // Default image size
+    this.imageSize = 120.0, // Default image size
     super.key,
   });
 
@@ -59,13 +62,13 @@ class TrendingBooksListWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5), // Space between image and title
-          if (title != null) // Check if title is not null before displaying
+          if (bookName != null) // Check if title is not null before displaying
             Text(
-              title!,
+              bookName!,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
-                color: titleColor,
+                color: bookNameColor,
               ),
             ),
         ],
