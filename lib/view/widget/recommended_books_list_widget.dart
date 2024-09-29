@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pdf_viewer/view/widget/colors.dart';
 
 class RecommendedBookListWidget extends StatelessWidget {
@@ -21,7 +22,7 @@ class RecommendedBookListWidget extends StatelessWidget {
     this.borderColor = ColorRes.borderColor, // Default border color
     this.backgroundColor = ColorRes.white, // Default background color
     this.imageUrl, // Image URL
-    this.imageSize = 120.0, // Default image size
+    this.imageSize = 100.0, // Default image size
     super.key,
   });
 
@@ -34,7 +35,7 @@ class RecommendedBookListWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 90,
+            width: 80,
             child: InkWell(
               onTap: onTap,
               child: Material(
@@ -46,7 +47,7 @@ class RecommendedBookListWidget extends StatelessWidget {
                   bottomLeft: Radius.circular(15.0),
                 ),
                 child: Container(
-                  width: 50,
+                  width: Get.width,
                   height: 100,
                   decoration: BoxDecoration(
                     color: backgroundColor,

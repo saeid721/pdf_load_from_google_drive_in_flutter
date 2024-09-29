@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -124,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: ColorRes.backgroundColor,
                   elevation: 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -143,6 +143,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                sizedBoxH(10),
               ],
             ),
           ),
