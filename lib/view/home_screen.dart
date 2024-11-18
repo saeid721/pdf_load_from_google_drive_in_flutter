@@ -5,7 +5,7 @@ import 'package:pdf_viewer/view/widget/colors.dart';
 import '../books_list/recommended_books_list.dart';
 import '../books_list/trending_books_list.dart';
 import '../controller/pdf_controller.dart';
-import 'side_ber_menu_screen.dart';
+import 'drawer_screen.dart';
 import 'widget/global_container.dart';
 import 'widget/global_sizedbox.dart';
 import 'widget/recommended_books_list_widget.dart';
