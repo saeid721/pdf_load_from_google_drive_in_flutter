@@ -42,28 +42,81 @@ class UrlPdf extends StatelessWidget {
   }
 
   void _showAddBookmarkDialog(BuildContext context, PdfController controller) {
-    final textController = TextEditingController();
+    final TextEditingController textController = TextEditingController();
+
     showDialog(
       context: context,
+      barrierDismissible: true, // Allows dismissing by tapping outside
       builder: (ctx) => AlertDialog(
-        title: Text('Bookmark Page ${controller.currentPage}'),
-        content: TextField(
-          controller: textController,
-          decoration: const InputDecoration(labelText: 'Add note'),
-          maxLines: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0), // Rounded corners
         ),
+        elevation: 8.0, // Adds subtle shadow for depth
+        title: Row(
+          children: [
+            Icon(Icons.bookmark, color: Theme.of(context).primaryColor),
+            const SizedBox(width: 8.0),
+            Text(
+              'Bookmark Page ${controller.currentPage}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
+        ),
+        content: SizedBox(
+          width: double.maxFinite, // Ensures dialog uses available width
+          child: TextField(
+            controller: textController,
+            decoration: InputDecoration(
+              labelText: 'Add a Note',
+              hintText: 'Enter your bookmark note here...',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              filled: true,
+              fillColor: Colors.grey[100], // Subtle background color
+              contentPadding: const EdgeInsets.all(12.0),
+            ),
+            maxLines: 3,
+            keyboardType: TextInputType.text,
+          ),
+        ),
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.grey[600], // Subtle color for cancel
+            ),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () {
-              controller.addBookmark(
-                  controller.currentPage.value, textController.text);
-              Navigator.pop(ctx);
+              if (textController.text.trim().isNotEmpty) { // Basic validation
+                controller.addBookmark(
+                  controller.currentPage.value,
+                  textController.text.trim(),
+                );
+                Navigator.pop(ctx);
+              } else {
+                ScaffoldMessenger.of(ctx).showSnackBar(
+                  const SnackBar(content: Text('Please add a note')),
+                );
+              }
             },
-            child: const Text('Save'),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              elevation: 2.0, // Slight elevation for a premium feel
+            ),
+            child: const Text(
+              'Save Bookmark',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
