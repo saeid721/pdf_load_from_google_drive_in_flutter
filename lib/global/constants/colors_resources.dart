@@ -1,33 +1,33 @@
+
 import 'package:flutter/material.dart';
 
 class ColorRes {
   BuildContext context;
   ColorRes(this.context);
 
-  static const Color balck = Color(0xff000000);
 
-  static const Color textColor = Color(0xff454545);
-  static const Color logoColor = Color(0xff3D2312);
-  static const Color backgroundColor = Color(0xFFf3f2f7);
-  static const Color primaryColor = Color(0xFF00303F);
-  static const Color secondaryColor = Color(0xFF00303F);
+  // ==/@ App Color @/==
 
-  static const Color borderColor = Color(0xffE5E4E2);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color blue = Color(0xFF2196F3);
-  static const Color red = Color(0xFFF44336);
-  static const Color green = Color(0xFF8FCC30);
+  static const Color appColor = Color(0xFF027DFD);
+  static const Color primaryColor = Color(0xFF0553B1);
+  static const Color buttonColor = Color(0xFFFFA24A);
+  static const Color textColor = Color(0xFF2A3256);
+  static const Color backgroundColor = Color(0xFFEFEFEF);
 
   static const Color dark = Color(0xff222222);
   static const Color darkGaro = Color(0xff2d2d2d);
   static const Color background = Color(0xFFFFFFFF);
+  static const Color borderColor = Color(0xffE5E4E2);
   static const Color title = Color(0xFFFFC107);
 
   /// ==@ All Color Res @==
   static const Color black = Color(0xFF000000);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color blue = Color(0xFF2196F3);
   static const Color blueAccent = Color(0xFF448AFF);
   static const Color lightBlue = Color(0xFF03A9F4);
   static const Color lightBlueAccent = Color(0xFF40C4FF);
+  static const Color green = Color(0xFF4CAF50);
   static const Color greenAccent = Color(0xFF69F0AE);
   static const Color lightGreen = Color(0xFF8BC34A);
   static const Color lightGreenAccent = Color(0xFFB2FF59);
@@ -41,6 +41,7 @@ class ColorRes {
   static const Color deepPurpleAccent = Color(0xFF7C4DFF);
   static const Color grey = Color(0xFF9E9E9E);
   static const Color blueGrey = Color(0xFF607D8B);
+  static const Color red = Color(0xFFF44336);
   static const Color redAccent = Color(0xFFFF5252);
   static const Color pink = Color(0xFFE91E63);
   static const Color pinkAccent = Color(0xFFFF4081);
@@ -72,5 +73,26 @@ class ColorRes {
   static const Color deep250 = Color(0xFF7C7C7C);
   static const Color deep300 = Color(0xFF545454);
   static const Color deep400 = Color(0xFF2D2D2D);
+
+  static const Color pink100 = Color(0xFFFE002E);
+
+  static const List<Color> splashColor = [
+    // Color(0xFF009FE3), // #009FE3
+    // Color(0xFFD9D9D9), // #D9D9D9
+    Color(0xFF7BC7E9), // #7BC7E9
+    Color(0xFFFFFFFF), // #FFFFFF
+    Color(0xFFF3EFEF), // #F3EFEF
+    Color(0xFFFD002C), // #FD002C
+  ];
+
+  static const List<Color> visaCard = [
+    // Color(0xFF009FE3), // #009FE3
+    // Color(0xFFD9D9D9), // #D9D9D9
+    Color(0xFF009EE4), // #009EE4
+    Color(0xFF96DDFC), // #96DDFC
+    Color(0xFF51BCEC), // #51BCEC
+    Color(0xFF0171BB), // #0171BB
+  ];
+
 
 }

@@ -14,10 +14,10 @@ class UrlPdf extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Obx(() => Text(
-          pdfController.isSearching.value
-              ? 'Page ${pdfController.currentPage}/${pdfController.totalPages}'
-              : 'PDF Viewer',
-        )),
+              pdfController.isSearching.value
+                  ? 'Page ${pdfController.currentPage}/${pdfController.totalPages}'
+                  : 'PDF Viewer',
+            )),
         actions: [
           IconButton(
             icon: const Icon(Icons.bookmark_add),
@@ -25,15 +25,18 @@ class UrlPdf extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () => _showSearchDialog(context, pdfController, pdfViewerController),
+            onPressed: () =>
+                _showSearchDialog(context, pdfController, pdfViewerController),
           ),
         ],
       ),
       body: SfPdfViewer.network(
         pdfController.pdfUrl.value,
         controller: pdfViewerController,
-        onDocumentLoaded: (details) => pdfController.totalPages.value = details.document.pages.count,
-        onPageChanged: (details) => pdfController.currentPage.value = details.newPageNumber,
+        onDocumentLoaded: (details) =>
+            pdfController.totalPages.value = details.document.pages.count,
+        onPageChanged: (details) =>
+            pdfController.currentPage.value = details.newPageNumber,
       ),
     );
   }
@@ -56,7 +59,8 @@ class UrlPdf extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              controller.addBookmark(controller.currentPage.value, textController.text);
+              controller.addBookmark(
+                  controller.currentPage.value, textController.text);
               Navigator.pop(ctx);
             },
             child: const Text('Save'),
@@ -67,10 +71,10 @@ class UrlPdf extends StatelessWidget {
   }
 
   void _showSearchDialog(
-      BuildContext context,
-      PdfController pdfController, // Assuming this has totalPages and isSearching
-      PdfViewerController pdfViewerController,
-      ) {
+    BuildContext context,
+    PdfController pdfController, // Assuming this has totalPages and isSearching
+    PdfViewerController pdfViewerController,
+  ) {
     final TextEditingController pageController = TextEditingController();
     String? errorMessage;
 
@@ -114,7 +118,7 @@ class UrlPdf extends StatelessWidget {
                   filled: true,
                   fillColor: Colors.grey[100],
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
                     borderSide: BorderSide.none,
@@ -128,8 +132,11 @@ class UrlPdf extends StatelessWidget {
                 onChanged: (value) {
                   final page = int.tryParse(value);
                   setState(() {
-                    if (page == null || page < 1 || page > pdfController.totalPages.value) {
-                      errorMessage = 'Enter a valid page (1-${pdfController.totalPages.value})';
+                    if (page == null ||
+                        page < 1 ||
+                        page > pdfController.totalPages.value) {
+                      errorMessage =
+                          'Enter a valid page (1-${pdfController.totalPages.value})';
                     } else {
                       errorMessage = null;
                     }
@@ -160,7 +167,9 @@ class UrlPdf extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 final page = int.tryParse(pageController.text);
-                if (page != null && page > 0 && page <= pdfController.totalPages.value) {
+                if (page != null &&
+                    page > 0 &&
+                    page <= pdfController.totalPages.value) {
                   pdfViewerController.jumpToPage(page);
                   pdfController.isSearching.value = true;
                   Navigator.pop(context);
@@ -176,7 +185,8 @@ class UrlPdf extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 elevation: 2,
               ),
               child: const Text(
@@ -187,10 +197,10 @@ class UrlPdf extends StatelessWidget {
               ),
             ),
           ],
-          actionsPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          actionsPadding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         ),
       ),
     );
   }
-
 }

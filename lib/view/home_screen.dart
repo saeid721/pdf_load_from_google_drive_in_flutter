@@ -6,7 +6,7 @@ import '../books_list/recommended_books_list.dart';
 import '../books_list/trending_books_list.dart';
 import '../controller/pdf_controller.dart';
 import 'bookmarks_screen.dart';
-import 'drawer_screen.dart';
+import 'custom_drawer_screen.dart';
 import 'widget/global_container.dart';
 import 'widget/global_sizedbox.dart';
 import 'widget/recommended_books_list_widget.dart';
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      drawer: const SideBerMenuWidget(),
+      drawer: const CustomDrawerScreen(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
