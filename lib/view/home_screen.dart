@@ -5,6 +5,7 @@ import 'package:pdf_viewer/view/widget/colors.dart';
 import '../books_list/recommended_books_list.dart';
 import '../books_list/trending_books_list.dart';
 import '../controller/pdf_controller.dart';
+import 'bookmarks_screen.dart';
 import 'drawer_screen.dart';
 import 'widget/global_container.dart';
 import 'widget/global_sizedbox.dart';
@@ -33,14 +34,6 @@ class HomeScreen extends StatelessWidget {
             color: ColorRes.primaryColor,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Get.to(() => SignInScreen());
-            },
-            icon: const Icon(Icons.logout),
-          ),
-        ],
       ),
       drawer: const SideBerMenuWidget(),
       body: SafeArea(
@@ -50,10 +43,10 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Trending Books',
                       style: TextStyle(
                         fontSize: 16,
@@ -62,7 +55,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      child: Text(
+                      onTap: () {},
+                      child: const Text(
                         'See All',
                         style: TextStyle(
                           fontSize: 16,
@@ -95,10 +89,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 sizedBoxH(10),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Recommended Books',
                       style: TextStyle(
                         fontSize: 16,
@@ -107,7 +101,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      child: Text(
+                      onTap: () {},
+                      child: const Text(
                         'See All',
                         style: TextStyle(
                           fontSize: 16,
@@ -124,7 +119,8 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: ColorRes.backgroundColor,
                   elevation: 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(
+                        left: 5, right: 5, top: 10, bottom: 10),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -150,10 +146,15 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        onTap: (index) {
+          if (index == 2) Get.to(() => const BookmarksScreen());
+        },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.explore, color: Colors.blue), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.book, color: Colors.blue), label: 'Reading'),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark, color: Colors.grey), label: 'Bookmark'),
+          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Reading'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark), label: 'Bookmarks'),
         ],
       ),
     );

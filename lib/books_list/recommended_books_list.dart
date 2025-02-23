@@ -1,11 +1,8 @@
-
-// List of books with their image URLs and PDF URLs
 import '../model/book_model.dart';
 
 final List<RecommendedBooks> recommendedBooks = [
   RecommendedBooks(
     imageUrl: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1614241041i/57203214.jpg",
-    //pdfUrl: "https://drive.google.com/file/d/1aPn0sPjDvVJtve1GX4I1WuWkjBd0ETlu/view?usp=drive_link",
     pdfUrl: "https://drive.google.com/uc?export=download&id=13Inceg4dVUvcnzYhzdI-xhmTFL7FDoWJ",
     bookName: "স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড",
     authorName: "পিনাকী ভট্টাচার্য",
