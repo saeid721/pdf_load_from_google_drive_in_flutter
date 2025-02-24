@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/book_model.dart';
 
@@ -80,5 +83,31 @@ class PdfController extends GetxController {
 
   List<DownloadBooks> getDownloadBooks() {
     return downloadBooks.where((b) => b.pdfUrl == pdfUrl.value).toList();
+  }
+
+  Future<void> downloadAndSavePdf(DownloadBooks book) async {
+    try {
+      // Make HTTP request to download the PDF
+      final response = await http.get(Uri.parse(book.pdfUrl));
+
+      if (response.statusCode == 200) {
+        // Get the directory to save the file
+        final directory = await getApplicationDocumentsDirectory();
+        final filePath = '${directory.path}/${book.bookName}.pdf';
+
+        // Save the file
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+
+        // Add to download list
+        await addDownloadBook(book);
+
+        Get.snackbar('Success', '${book.bookName} downloaded successfully');
+      } else {
+        Get.snackbar('Error', 'Failed to download PDF');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Download failed: $e');
+    }
   }
 }

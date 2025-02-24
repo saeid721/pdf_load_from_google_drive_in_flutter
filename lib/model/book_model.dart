@@ -71,12 +71,14 @@ class DownloadBooks {
   final String pdfUrl;
   final String bookName;
   final String authorName;
+  final String shortDescription;
 
   DownloadBooks({
     required this.imageUrl,
     required this.pdfUrl,
     required this.bookName,
     required this.authorName,
+    required this.shortDescription,
   });
 
   Map<String, dynamic> toMap() {
@@ -85,6 +87,7 @@ class DownloadBooks {
       'pdfUrl': pdfUrl,
       'bookName': bookName,
       'authorName': authorName,
+      'shortDescription': shortDescription,
     };
   }
 
@@ -94,6 +97,7 @@ class DownloadBooks {
       pdfUrl: map['pdfUrl'],
       bookName: map['bookName'],
       authorName: map['authorName'],
+      shortDescription: map['shortDescription'],
     );
   }
 

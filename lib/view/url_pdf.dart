@@ -5,7 +5,9 @@ import '../controller/pdf_controller.dart';
 import '../model/book_model.dart';
 
 class UrlPdf extends StatelessWidget {
-  const UrlPdf({super.key});
+  final DownloadBooks? book;
+
+  const UrlPdf({super.key, this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +19,19 @@ class UrlPdf extends StatelessWidget {
         title: Obx(() => Text(
           pdfController.isSearching.value
               ? 'Page ${pdfController.currentPage}/${pdfController.totalPages}'
-              : 'PDF Viewer',
+              : book?.bookName ?? 'PDF Viewer',
         )),
         actions: [
           IconButton(
             icon: const Icon(Icons.download),
-            onPressed: () {
-              final book = DownloadBooks(
-                imageUrl: '',
-                pdfUrl: pdfController.pdfUrl.value,
-                bookName: 'Sample Book',
-                authorName: 'Author',
-              );
-              pdfController.addDownloadBook(book);
+            onPressed: () async {
+              if (book != null) {
+                await pdfController.downloadAndSavePdf(book!);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Book information not available')),
+                );
+              }
             },
           ),
           IconButton(

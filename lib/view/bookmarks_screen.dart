@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../controller/pdf_controller.dart';
 import '../global/constants/colors_resources.dart';
 import '../model/book_model.dart';
-import 'download_screen.dart';
+import 'dwonload/download_screen.dart';
 import 'home_screen.dart';
 import 'url_pdf.dart';
 
@@ -18,12 +18,12 @@ class BookmarksScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('My Bookmarks')),
       body: Obx(() => ListView.builder(
-        itemCount: controller.bookmarks.length,
-        itemBuilder: (ctx, i) =>
-            _buildBookmarkItem(controller.bookmarks[i]),
-      )),
+            itemCount: controller.bookmarks.length,
+            itemBuilder: (ctx, i) =>
+                _buildBookmarkItem(controller.bookmarks[i]),
+          )),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: 2,
         onTap: (index) {
           if (index == 0) {
             Get.to(() => const HomeScreen());
@@ -46,7 +46,10 @@ class BookmarksScreen extends StatelessWidget {
 
   Widget _buildBookmarkItem(Bookmark bookmark) {
     return ListTile(
-      title: Text(bookmark.message, style: const TextStyle(color: ColorRes.textColor),),
+      title: Text(
+        bookmark.message,
+        style: const TextStyle(color: ColorRes.textColor),
+      ),
       subtitle: Text(
         DateFormat('MMM dd, yyyy - hh:mm a').format(bookmark.timestamp),
         style: const TextStyle(color: Colors.grey, fontSize: 12),

@@ -9,7 +9,7 @@ import '../global/widget/global_container.dart';
 import '../global/widget/global_sizedbox.dart';
 import 'bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
-import 'download_screen.dart';
+import 'dwonload/download_screen.dart';
 import 'widget/recommended_books_list_widget.dart';
 import 'widget/trending_books_list_widget.dart';
 
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,12 +57,15 @@ class HomeScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {},
-                      child: const Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: ColorRes.primaryColor,
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Text(
+                          'See All',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: ColorRes.primaryColor,
+                          ),
                         ),
                       ),
                     ),
@@ -72,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                   width: Get.width,
                   color: ColorRes.backgroundColor,
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.all(2),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -103,12 +106,15 @@ class HomeScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {},
-                      child: const Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: ColorRes.primaryColor,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Text(
+                          'See All',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: ColorRes.primaryColor,
+                          ),
                         ),
                       ),
                     ),
@@ -116,9 +122,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 GlobalContainer(
                   width: Get.width,
-                  height: 400,
                   color: ColorRes.backgroundColor,
-                  elevation: 2,
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 5, right: 5, top: 10, bottom: 10),

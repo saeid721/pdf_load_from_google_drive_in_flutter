@@ -54,7 +54,8 @@ class _CustomDrawerScreenState extends State<CustomDrawerScreen> {
                       left: 20, right: 10, top: 50, bottom: 10),
                   decoration: BoxDecoration(
                     color: ColorRes.white100,
-                    border: Border.all(color: ColorRes.primaryColor, width: 0.3),
+                    border:
+                        Border.all(color: ColorRes.primaryColor, width: 0.3),
                   ),
                   child: const ClipRRect(
                     child: GlobalImageLoader(
@@ -87,7 +88,7 @@ class _CustomDrawerScreenState extends State<CustomDrawerScreen> {
                               _shareApp(); // Trigger share app function
                               break;
                             case 3:
-                            // Add any action for Rating here
+                              // Add any action for Rating here
                               break;
                             case 4:
                               Get.to(() => const AppPrivacyPolicyScreen());
@@ -134,8 +135,7 @@ class _CustomDrawerScreenState extends State<CustomDrawerScreen> {
             const Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 32.0, vertical: 50.0),
+                padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 50.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
