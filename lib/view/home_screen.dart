@@ -131,9 +131,9 @@ class HomeScreen extends StatelessWidget {
                               pdfController.setPdfUrl(recommendedBooks.pdfUrl);
                               Get.to(() => const UrlPdf());
                             },
-                            imageUrl: recommendedBooks.imageUrl ?? '',
-                            bookName: recommendedBooks.bookName ?? '',
-                            authorName: recommendedBooks.authorName ?? '',
+                            imageUrl: recommendedBooks.imageUrl,
+                            bookName: recommendedBooks.bookName,
+                            authorName: recommendedBooks.authorName,
                             shortDescription:
                                 recommendedBooks.shortDescription ?? '',
                           );

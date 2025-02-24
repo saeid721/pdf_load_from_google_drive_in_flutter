@@ -11,10 +11,10 @@ class PdfController extends GetxController {
   var searchQuery = ''.obs;
   var isSearching = false.obs;
 
-
   @override
   void onInit() {
     loadBookmarks();
+    loadDownloadBooks();
     super.onInit();
   }
 
@@ -54,15 +54,31 @@ class PdfController extends GetxController {
     return bookmarks.where((b) => b.pdfUrl == pdfUrl.value).toList();
   }
 
-
-  Future<void> downloadBooks() async {
+  Future<void> loadDownloadBooks() async {
     final prefs = await SharedPreferences.getInstance();
     final saved = prefs.getStringList('downloadBooks') ?? [];
-    downloadBooks.value = saved.map((e) => downloadBooks.fromJson(e)).toList();
+    downloadBooks.value = saved.map((e) => DownloadBooks.fromJson(e)).toList();
+  }
+
+  Future<void> addDownloadBook(DownloadBooks book) async {
+    downloadBooks.add(book);
+    await _saveDownloadBooks();
+  }
+
+  Future<void> removeDownloadBook(DownloadBooks book) async {
+    downloadBooks.remove(book);
+    await _saveDownloadBooks();
+  }
+
+  Future<void> _saveDownloadBooks() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(
+      'downloadBooks',
+      downloadBooks.map((e) => e.toJson()).toList(),
+    );
   }
 
   List<DownloadBooks> getDownloadBooks() {
     return downloadBooks.where((b) => b.pdfUrl == pdfUrl.value).toList();
   }
-
 }

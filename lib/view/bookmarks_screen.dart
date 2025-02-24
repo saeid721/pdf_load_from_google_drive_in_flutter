@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../controller/pdf_controller.dart';
+import '../global/constants/colors_resources.dart';
 import '../model/book_model.dart';
 import 'download_screen.dart';
 import 'home_screen.dart';
@@ -17,10 +18,10 @@ class BookmarksScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('My Bookmarks')),
       body: Obx(() => ListView.builder(
-            itemCount: controller.bookmarks.length,
-            itemBuilder: (ctx, i) =>
-                _buildBookmarkItem(controller.bookmarks[i]),
-          )),
+        itemCount: controller.bookmarks.length,
+        itemBuilder: (ctx, i) =>
+            _buildBookmarkItem(controller.bookmarks[i]),
+      )),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         onTap: (index) {
@@ -45,17 +46,17 @@ class BookmarksScreen extends StatelessWidget {
 
   Widget _buildBookmarkItem(Bookmark bookmark) {
     return ListTile(
-      title: Text('Page ${bookmark.page}: ${bookmark.message}'),
+      title: Text(bookmark.message, style: const TextStyle(color: ColorRes.textColor),),
       subtitle: Text(
         DateFormat('MMM dd, yyyy - hh:mm a').format(bookmark.timestamp),
-        style: const TextStyle(color: Colors.grey),
+        style: const TextStyle(color: Colors.grey, fontSize: 12),
       ),
       trailing: IconButton(
         icon: const Icon(Icons.delete),
-        onPressed: () => controller.removeBookmark(bookmark),
+        onPressed: () => Get.find<PdfController>().removeBookmark(bookmark),
       ),
       onTap: () {
-        controller.setPdfUrl(bookmark.pdfUrl);
+        Get.find<PdfController>().setPdfUrl(bookmark.pdfUrl);
         Get.to(() => const UrlPdf());
       },
     );

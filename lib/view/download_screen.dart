@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../controller/pdf_controller.dart';
 import '../model/book_model.dart';
 import 'bookmarks_screen.dart';
 import 'home_screen.dart';
-import 'url_pdf.dart';
 
 class DownloadScreen extends StatelessWidget {
   const DownloadScreen({super.key});
@@ -18,7 +16,7 @@ class DownloadScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Download Books')),
       body: Obx(() => ListView.builder(
         itemCount: controller.downloadBooks.length,
-        itemBuilder: (ctx, i) => _buildBookmarkItem(controller.downloadBooks[i]),
+        itemBuilder: (ctx, i) => _buildDownloadBookItem(controller.downloadBooks[i]),
       )),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
@@ -40,7 +38,7 @@ class DownloadScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBookmarkItem(DownloadBooks downloadBooks) {
+  Widget _buildDownloadBookItem(DownloadBooks downloadBooks) {
     return ListTile(
       title: Text('Book ${downloadBooks.bookName}'),
       subtitle: Text('Writer ${downloadBooks.authorName}'),
