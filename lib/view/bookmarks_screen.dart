@@ -45,22 +45,31 @@ class BookmarksScreen extends StatelessWidget {
   }
 
   Widget _buildBookmarkItem(Bookmark bookmark) {
+    final controller = Get.find<PdfController>();
     return ListTile(
-      title: Text(
-        bookmark.message,
-        style: const TextStyle(color: ColorRes.textColor),
-      ),
+      title: Text(bookmark.message),
       subtitle: Text(
         DateFormat('MMM dd, yyyy - hh:mm a').format(bookmark.timestamp),
         style: const TextStyle(color: Colors.grey, fontSize: 12),
       ),
       trailing: IconButton(
         icon: const Icon(Icons.delete),
-        onPressed: () => Get.find<PdfController>().removeBookmark(bookmark),
+        onPressed: () => controller.removeBookmark(bookmark),
       ),
       onTap: () {
-        Get.find<PdfController>().setPdfUrl(bookmark.pdfUrl);
-        Get.to(() => const UrlPdf());
+        controller.setPdfUrl(bookmark.pdfUrl);
+        // We don't have the full book info here, so we'll need to find it from downloads
+        final book = controller.downloadBooks.firstWhere(
+              (b) => b.pdfUrl == bookmark.pdfUrl,
+          orElse: () => DownloadBooks(
+            imageUrl: '',
+            pdfUrl: bookmark.pdfUrl,
+            bookName: 'Unknown Book',
+            authorName: 'Unknown Author',
+            shortDescription: '',
+          ),
+        );
+        Get.to(() => UrlPdfScreen(book: book));
       },
     );
   }

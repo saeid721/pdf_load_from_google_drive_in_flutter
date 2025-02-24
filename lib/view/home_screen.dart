@@ -7,6 +7,7 @@ import '../controller/pdf_controller.dart';
 import '../global/constants/colors_resources.dart';
 import '../global/widget/global_container.dart';
 import '../global/widget/global_sizedbox.dart';
+import '../model/book_model.dart';
 import 'bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
 import 'dwonload/download_screen.dart';
@@ -83,7 +84,15 @@ class HomeScreen extends StatelessWidget {
                           return TrendingBooksListWidget(
                             onTap: () {
                               pdfController.setPdfUrl(book.pdfUrl);
-                              Get.to(() => const UrlPdf());
+                              Get.to(() => UrlPdfScreen(
+                                book: DownloadBooks(
+                                  imageUrl: book.imageUrl,
+                                  pdfUrl: book.pdfUrl,
+                                  bookName: book.bookName,
+                                  authorName: book.authorName,
+                                  shortDescription: '',
+                                ),
+                              ));
                             },
                             imageUrl: book.imageUrl,
                           );
@@ -133,7 +142,15 @@ class HomeScreen extends StatelessWidget {
                           return RecommendedBookListWidget(
                             onTap: () {
                               pdfController.setPdfUrl(recommendedBooks.pdfUrl);
-                              Get.to(() => const UrlPdf());
+                              Get.to(() => UrlPdfScreen(
+                                book: DownloadBooks(
+                                  imageUrl: recommendedBooks.imageUrl,
+                                  pdfUrl: recommendedBooks.pdfUrl,
+                                  bookName: recommendedBooks.bookName,
+                                  authorName: recommendedBooks.authorName,
+                                  shortDescription: recommendedBooks.shortDescription ?? '',
+                                ),
+                              ));
                             },
                             imageUrl: recommendedBooks.imageUrl,
                             bookName: recommendedBooks.bookName,

@@ -17,11 +17,14 @@ class DownloadScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Download Books')),
-      body: Obx(() => ListView.builder(
-            itemCount: controller.downloadBooks.length,
-            itemBuilder: (ctx, i) =>
-                _buildDownloadBookItem(controller, controller.downloadBooks[i]),
-          )),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Obx(() => ListView.builder(
+              itemCount: controller.downloadBooks.length,
+              itemBuilder: (ctx, i) =>
+                  _buildDownloadBookItem(controller, controller.downloadBooks[i]),
+            )),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         onTap: (index) {
@@ -49,7 +52,8 @@ class DownloadScreen extends StatelessWidget {
     return DownloadBookListWidget(
       onTap: () {
         controller.setPdfUrl(downloadBooks.pdfUrl);
-        Get.to(() => UrlPdf(book: downloadBooks)); // Pass the book details
+        Get.find<PdfController>().setPdfUrl(downloadBooks.pdfUrl);
+        Get.to(() => UrlPdfScreen(book: downloadBooks));
       },
       imageUrl: downloadBooks.imageUrl,
       bookName: downloadBooks.bookName,
