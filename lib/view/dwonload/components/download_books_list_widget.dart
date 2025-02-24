@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global/constants/colors_resources.dart';
 import '../../../global/widget/global_container.dart';
+import '../../../global/widget/global_sizedbox.dart';
 
 class DownloadBookListWidget extends StatelessWidget {
   final VoidCallback onTap;
@@ -35,15 +36,12 @@ class DownloadBookListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
       child: GlobalContainer(
         width: Get.width,
-        color: Colors.grey[100]!,
-        bottomBorderColor: ColorRes.borderColor,
         borderWidth: 1,
         borderRadius: BorderRadius.circular(10),
         elevation: 2,
-        padding: const EdgeInsets.all(8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,

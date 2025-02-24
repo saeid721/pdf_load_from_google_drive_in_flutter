@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/pdf_controller.dart';
+import '../../global/widget/global_sizedbox.dart';
 import '../../model/book_model.dart';
 import '../bookmarks_screen.dart';
 import '../home_screen.dart';
@@ -17,14 +18,11 @@ class DownloadScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Download Books')),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Obx(() => ListView.builder(
-              itemCount: controller.downloadBooks.length,
-              itemBuilder: (ctx, i) =>
-                  _buildDownloadBookItem(controller, controller.downloadBooks[i]),
-            )),
-      ),
+      body: Obx(() => ListView.builder(
+            itemCount: controller.downloadBooks.length,
+            itemBuilder: (ctx, i) =>
+                _buildDownloadBookItem(controller, controller.downloadBooks[i]),
+          )),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
         onTap: (index) {
