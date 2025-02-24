@@ -47,9 +47,11 @@ class ContactDetailsWidget extends StatelessWidget {
     await launchUrl(emailUri);
   }
 
-  Future<void> _openGoogleMap(BuildContext context, String name, String address) async {
+  Future<void> _openGoogleMap(
+      BuildContext context, String name, String address) async {
     final query = Uri.encodeComponent(" $name, $address");
-    final geoUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$query");
+    final geoUri =
+        Uri.parse("#");
 
     if (await canLaunchUrl(geoUri)) {
       await launchUrl(geoUri, mode: LaunchMode.externalApplication);
@@ -68,7 +70,7 @@ class ContactDetailsWidget extends StatelessWidget {
       onTap: onTap,
       child: GlobalContainer(
         padding:
-        const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
+            const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
         borderRadiusCircular: 10,
         borderColor: ColorRes.borderColor,
         elevation: 2,
@@ -96,7 +98,6 @@ class ContactDetailsWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -250,7 +251,7 @@ class ContactDetailsWidget extends StatelessWidget {
                 ),
                 sizedBoxW(5),
                 GestureDetector(
-                  onTap: () => _openGoogleMap(context, name, address ),
+                  onTap: () => _openGoogleMap(context, name, address),
                   child: Container(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 2, bottom: 2),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'global/constants/colors_resources.dart';
 import 'view/splash_screen/splash_screen.dart';
-import 'view/widget/colors.dart';
-
 void main() {
   runApp(const MyApp());
 }

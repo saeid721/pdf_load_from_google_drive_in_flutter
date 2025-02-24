@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdf_viewer/view/url_pdf.dart';
-import 'package:pdf_viewer/view/widget/colors.dart';
 import '../books_list/recommended_books_list.dart';
 import '../books_list/trending_books_list.dart';
 import '../controller/pdf_controller.dart';
+import '../global/constants/colors_resources.dart';
+import '../global/widget/global_container.dart';
+import '../global/widget/global_sizedbox.dart';
 import 'bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
 import 'download_screen.dart';
-import 'widget/global_container.dart';
-import 'widget/global_sizedbox.dart';
 import 'widget/recommended_books_list_widget.dart';
 import 'widget/trending_books_list_widget.dart';
 
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 GlobalContainer(
                   width: Get.width,
-                  backgroundColor: ColorRes.backgroundColor,
+                  color: ColorRes.backgroundColor,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: SingleChildScrollView(
@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                 GlobalContainer(
                   width: Get.width,
                   height: 400,
-                  backgroundColor: ColorRes.backgroundColor,
+                  color: ColorRes.backgroundColor,
                   elevation: 2,
                   child: Padding(
                     padding: const EdgeInsets.only(

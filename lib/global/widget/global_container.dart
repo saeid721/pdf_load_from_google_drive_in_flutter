@@ -12,6 +12,7 @@ class GlobalContainer extends StatelessWidget {
   final double elevation;
   final Color? borderColor;
   final double borderWidth;
+  final Color? bottomBorderColor;
 
   const GlobalContainer({
     super.key,
@@ -26,6 +27,7 @@ class GlobalContainer extends StatelessWidget {
     this.elevation = 0.0,
     this.borderColor,
     this.borderWidth = 1.0,
+    this.bottomBorderColor,
   });
 
   @override
@@ -47,15 +49,17 @@ class GlobalContainer extends StatelessWidget {
         borderRadius: borderRadius ?? BorderRadius.circular(dynamicRadius),
         boxShadow: elevation > 0
             ? [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: elevation,
-            offset: const Offset(0, 2),
-          ),
-        ]
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: elevation,
+                  offset: const Offset(0, 2),
+                ),
+              ]
             : [], // No shadow if elevation is 0
-        border: borderColor != null ? Border.all(color: borderColor!, width: borderWidth) : null,
+        border: borderColor != null
+            ? Border.all(color: borderColor!, width: borderWidth)
+            : null,
       ),
       child: child,
     );

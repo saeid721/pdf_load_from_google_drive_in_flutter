@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pdf_viewer/view/widget/colors.dart';
+import '../../global/constants/colors_resources.dart';
 
 class RecommendedBookListWidget extends StatelessWidget {
   final VoidCallback onTap;

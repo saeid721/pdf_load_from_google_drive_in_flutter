@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import '../../global/constants/colors_resources.dart';
 
 class TrendingBooksListWidget extends StatelessWidget {
   final VoidCallback onTap;

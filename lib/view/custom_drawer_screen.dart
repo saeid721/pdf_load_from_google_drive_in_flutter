@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
+import '../global/constants/colors_resources.dart';
 import '../global/constants/enum.dart';
 import '../global/constants/images.dart';
 import '../global/widget/global_image_loader.dart';
@@ -10,7 +11,6 @@ import '../model/model.dart';
 import 'contact_screen/contact_screen.dart';
 import 'home_screen.dart';
 import 'privacy_policy_screen/privacy_policy_screen.dart';
-import 'widget/colors.dart';
 
 class CustomDrawerScreen extends StatefulWidget {
   const CustomDrawerScreen({super.key});

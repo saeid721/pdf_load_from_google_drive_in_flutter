@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../global/constants/colors_resources.dart';
 import '../home_screen.dart';
 import 'custom_background_widget.dart';
-import '../widget/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
