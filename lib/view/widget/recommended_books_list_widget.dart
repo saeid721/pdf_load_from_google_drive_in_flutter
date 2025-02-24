@@ -6,8 +6,10 @@ class RecommendedBookListWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String bookName; // Changed to optional
   final String authorName; // Changed to optional
+  final String shortDescription; // Changed to optional
   final Color bookNameColor; // Dynamic title color
-  final Color authorNameColor; // Dynamic title color
+  final Color authorNameColor; // Dynamic author color
+  final Color shortDescriptionColor; // Dynamic description color
   final Color borderColor; // Dynamic border color
   final Color backgroundColor;
   final String? imageUrl; // Optional image URL
@@ -17,8 +19,11 @@ class RecommendedBookListWidget extends StatelessWidget {
     required this.onTap,
     required this.bookName, // Changed to optional
     required this.authorName, // Changed to optional
+    required this.shortDescription, // Changed to optional
     this.bookNameColor = ColorRes.primaryColor, // Default title color
-    this.authorNameColor = ColorRes.textColor, // Default title color
+    this.authorNameColor = ColorRes.textColor, // Default author color
+    this.shortDescriptionColor =
+        ColorRes.textColor, // Default description color
     this.borderColor = ColorRes.borderColor, // Default border color
     this.backgroundColor = ColorRes.white, // Default background color
     this.imageUrl, // Image URL
@@ -35,7 +40,7 @@ class RecommendedBookListWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 80,
+            width: 70,
             child: InkWell(
               onTap: onTap,
               child: Material(
@@ -48,7 +53,7 @@ class RecommendedBookListWidget extends StatelessWidget {
                 ),
                 child: Container(
                   width: Get.width,
-                  height: 100,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     borderRadius: const BorderRadius.only(
@@ -68,32 +73,41 @@ class RecommendedBookListWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      bookName,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: bookNameColor,
-                      ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    bookName,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: bookNameColor,
                     ),
-                    Text(
-                      authorName,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: authorNameColor,
-                      ),
+                  ),
+                  Text(
+                    authorName,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: authorNameColor,
                     ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    shortDescription,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: shortDescriptionColor,
+                    ),
+                    maxLines: 2,
+                  ),
+                ],
               ),
             ),
+          ),
         ],
       ),
     );

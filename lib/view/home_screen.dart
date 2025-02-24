@@ -7,6 +7,7 @@ import '../books_list/trending_books_list.dart';
 import '../controller/pdf_controller.dart';
 import 'bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
+import 'download_screen.dart';
 import 'widget/global_container.dart';
 import 'widget/global_sizedbox.dart';
 import 'widget/recommended_books_list_widget.dart';
@@ -130,9 +131,11 @@ class HomeScreen extends StatelessWidget {
                               pdfController.setPdfUrl(recommendedBooks.pdfUrl);
                               Get.to(() => const UrlPdf());
                             },
-                            imageUrl: recommendedBooks.imageUrl,
-                            bookName: recommendedBooks.bookName,
-                            authorName: recommendedBooks.authorName,
+                            imageUrl: recommendedBooks.imageUrl ?? '',
+                            bookName: recommendedBooks.bookName ?? '',
+                            authorName: recommendedBooks.authorName ?? '',
+                            shortDescription:
+                                recommendedBooks.shortDescription ?? '',
                           );
                         }).toList(),
                       ),
@@ -148,11 +151,18 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         onTap: (index) {
-          if (index == 2) Get.to(() => const BookmarksScreen());
+          if (index == 0) {
+            Get.to(() => const HomeScreen());
+          } else if (index == 1) {
+            Get.to(() => const DownloadScreen());
+          } else if (index == 2) {
+            Get.to(() => const BookmarksScreen());
+          }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Reading'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.download), label: 'Download'),
           BottomNavigationBarItem(
               icon: Icon(Icons.bookmark), label: 'Bookmarks'),
         ],

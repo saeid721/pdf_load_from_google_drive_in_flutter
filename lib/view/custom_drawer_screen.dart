@@ -49,6 +49,7 @@ class _CustomDrawerScreenState extends State<CustomDrawerScreen> {
               children: [
                 Container(
                   width: Get.width,
+                  height: 160,
                   padding: const EdgeInsets.only(
                       left: 20, right: 10, top: 50, bottom: 10),
                   decoration: BoxDecoration(

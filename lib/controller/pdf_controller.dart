@@ -5,6 +5,7 @@ import '../model/book_model.dart';
 class PdfController extends GetxController {
   var pdfUrl = ''.obs;
   var bookmarks = <Bookmark>[].obs;
+  var downloadBooks = <DownloadBooks>[].obs;
   var currentPage = 1.obs;
   var totalPages = 0.obs;
   var searchQuery = ''.obs;
@@ -52,4 +53,16 @@ class PdfController extends GetxController {
   List<Bookmark> getBookmarksForCurrentPdf() {
     return bookmarks.where((b) => b.pdfUrl == pdfUrl.value).toList();
   }
+
+
+  Future<void> downloadBooks() async {
+    final prefs = await SharedPreferences.getInstance();
+    final saved = prefs.getStringList('downloadBooks') ?? [];
+    downloadBooks.value = saved.map((e) => downloadBooks.fromJson(e)).toList();
+  }
+
+  List<DownloadBooks> getDownloadBooks() {
+    return downloadBooks.where((b) => b.pdfUrl == pdfUrl.value).toList();
+  }
+
 }
