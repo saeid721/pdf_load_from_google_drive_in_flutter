@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../global/constants/colors_resources.dart';
 import '../../../global/widget/global_container.dart';
-import '../../../global/widget/global_sizedbox.dart';
 
 class DownloadBookListWidget extends StatelessWidget {
   final VoidCallback onTap;

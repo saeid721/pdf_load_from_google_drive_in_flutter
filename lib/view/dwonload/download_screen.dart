@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/pdf_controller.dart';
-import '../../global/widget/global_sizedbox.dart';
-import '../../model/book_model.dart';
-import '../bookmarks_screen.dart';
+import '../bookmarks_screen/bookmarks_screen.dart';
 import '../home_screen.dart';
 import '../url_pdf.dart';
-import '../widget/recommended_books_list_widget.dart';
 import 'components/download_books_list_widget.dart';
+import 'components/download_model.dart';
 
 class DownloadScreen extends StatelessWidget {
   const DownloadScreen({super.key});

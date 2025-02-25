@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../controller/pdf_controller.dart';
-import '../global/constants/colors_resources.dart';
-import '../model/book_model.dart';
-import 'dwonload/download_screen.dart';
-import 'home_screen.dart';
-import 'url_pdf.dart';
+import '../../controller/pdf_controller.dart';
+import '../dwonload/components/download_model.dart';
+import '../dwonload/download_screen.dart';
+import '../home_screen.dart';
+import '../url_pdf.dart';
+import 'components/bookmark_model.dart';
 
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({super.key});

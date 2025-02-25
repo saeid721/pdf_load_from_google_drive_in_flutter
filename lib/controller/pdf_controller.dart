@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/book_model.dart';
+import '../view/bookmarks_screen/components/bookmark_model.dart';
+import '../view/dwonload/components/download_model.dart';
 
 class PdfController extends GetxController {
   var pdfUrl = ''.obs;

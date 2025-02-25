@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../controller/pdf_controller.dart';
-import '../model/book_model.dart';
+import 'dwonload/components/download_model.dart';
 
 class UrlPdfScreen extends StatelessWidget {
   final DownloadBooks book;
