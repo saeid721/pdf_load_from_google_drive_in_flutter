@@ -35,7 +35,7 @@ class TrendingBooksListWidget extends StatelessWidget {
             onTap: onTap,
             child: Material(
               color: Colors.transparent,
-              elevation: 2.0,
+              elevation: 1,
               shadowColor: Colors.black.withOpacity(1),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(15.0),
@@ -53,9 +53,9 @@ class TrendingBooksListWidget extends StatelessWidget {
                   border: Border.all(color: borderColor, width: 1.0),
                   image: imageUrl != null
                       ? DecorationImage(
-                    image: NetworkImage(imageUrl!),
-                    fit: BoxFit.cover,
-                  )
+                          image: NetworkImage(imageUrl!),
+                          fit: BoxFit.cover,
+                        )
                       : null,
                 ),
               ),
