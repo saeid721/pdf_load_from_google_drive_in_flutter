@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text(
           'PDF Library',
           style: TextStyle(
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             color: ColorRes.primaryColor,
           ),
@@ -85,14 +85,14 @@ class HomeScreen extends StatelessWidget {
                             onTap: () {
                               pdfController.setPdfUrl(book.pdfUrl);
                               Get.to(() => UrlPdfScreen(
-                                book: DownloadBooks(
-                                  imageUrl: book.imageUrl,
-                                  pdfUrl: book.pdfUrl,
-                                  bookName: book.bookName,
-                                  authorName: book.authorName,
-                                  shortDescription: '',
-                                ),
-                              ));
+                                    book: DownloadBooks(
+                                      imageUrl: book.imageUrl,
+                                      pdfUrl: book.pdfUrl,
+                                      bookName: book.bookName,
+                                      authorName: book.authorName,
+                                      shortDescription: '',
+                                    ),
+                                  ));
                             },
                             imageUrl: book.imageUrl,
                           );
@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                     InkWell(
                       onTap: () {},
                       child: const Padding(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(right: 10),
                         child: Text(
                           'See All',
                           style: TextStyle(
@@ -133,8 +133,7 @@ class HomeScreen extends StatelessWidget {
                   width: Get.width,
                   color: ColorRes.backgroundColor,
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 5, right: 5, top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(right: 5),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -143,14 +142,16 @@ class HomeScreen extends StatelessWidget {
                             onTap: () {
                               pdfController.setPdfUrl(recommendedBooks.pdfUrl);
                               Get.to(() => UrlPdfScreen(
-                                book: DownloadBooks(
-                                  imageUrl: recommendedBooks.imageUrl,
-                                  pdfUrl: recommendedBooks.pdfUrl,
-                                  bookName: recommendedBooks.bookName,
-                                  authorName: recommendedBooks.authorName,
-                                  shortDescription: recommendedBooks.shortDescription ?? '',
-                                ),
-                              ));
+                                    book: DownloadBooks(
+                                      imageUrl: recommendedBooks.imageUrl,
+                                      pdfUrl: recommendedBooks.pdfUrl,
+                                      bookName: recommendedBooks.bookName,
+                                      authorName: recommendedBooks.authorName,
+                                      shortDescription:
+                                          recommendedBooks.shortDescription ??
+                                              '',
+                                    ),
+                                  ));
                             },
                             imageUrl: recommendedBooks.imageUrl,
                             bookName: recommendedBooks.bookName,

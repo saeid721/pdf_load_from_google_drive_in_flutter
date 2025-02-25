@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../global/constants/colors_resources.dart';
+
 class DownloadBookListWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String imageUrl;
@@ -21,72 +23,76 @@ class DownloadBookListWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        elevation: 2,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Book Cover Image
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  imageUrl,
+        color: ColorRes.white,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        elevation: 1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Book Cover Image
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                bottomLeft: Radius.circular(10.0),
+              ),
+              child: Image.network(
+                imageUrl,
+                width: 80,
+                height: 120,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
                   width: 80,
                   height: 120,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    width: 80,
-                    height: 120,
-                    color: Colors.grey[300],
-                    child: const Icon(
-                      Icons.book,
-                      color: Colors.grey,
-                      size: 40,
-                    ),
+                  color: Colors.grey[300],
+                  child: const Icon(
+                    Icons.book,
+                    color: Colors.grey,
+                    size: 40,
                   ),
                 ),
               ),
-              const SizedBox(width: 16),
-              // Book Details
-              Expanded(
+            ),
+            const SizedBox(width: 5),
+            // Book Details
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5,right: 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       bookName,
                       style: const TextStyle(
+                        color: ColorRes.primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
                     Text(
                       authorName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
-                        color: Colors.grey[700],
+                        color: ColorRes.textColor,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 5),
                     Text(
                       shortDescription,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
-                        color: Colors.grey[800],
+                        color: ColorRes.textColor,
                       ),
-                      maxLines: 3,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

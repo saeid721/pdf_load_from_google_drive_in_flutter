@@ -25,7 +25,13 @@ class BookmarksScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: ColorRes.primaryColor),
         centerTitle: true,
-        title: const Text('My Bookmarks'),
+        title: const Text('My Bookmarks',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: ColorRes.primaryColor,
+          ),
+        ),
         actions: [
           Obx(() {
             if (bookmarkController.isDownloading.value) {

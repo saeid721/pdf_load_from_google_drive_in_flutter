@@ -33,19 +33,19 @@ class RecommendedBookListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 70,
-            child: InkWell(
-              onTap: onTap,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: ColorRes.white,
+        elevation: 1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 70,
               child: Material(
                 color: Colors.transparent,
-                elevation: 2.0,
                 shadowColor: Colors.black.withOpacity(1),
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(15.0),
@@ -57,10 +57,9 @@ class RecommendedBookListWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(10.0),
+                      topLeft: Radius.circular(10.0),
                       bottomLeft: Radius.circular(10.0),
                     ),
-                    border: Border.all(color: borderColor, width: 1.0),
                     image: imageUrl != null
                         ? DecorationImage(
                             image: NetworkImage(imageUrl!),
@@ -71,44 +70,44 @@ class RecommendedBookListWidget extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 5),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    bookName,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: bookNameColor,
+            const SizedBox(height: 5),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      bookName,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: bookNameColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    authorName,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: authorNameColor,
+                    Text(
+                      authorName,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: authorNameColor,
+                      ),
                     ),
-                  ),
-                  Text(
-                    shortDescription,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: shortDescriptionColor,
+                    Text(
+                      shortDescription,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: shortDescriptionColor,
+                      ),
+                      maxLines: 2,
                     ),
-                    maxLines: 2,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ import '../controller/pdf_controller.dart';
 import '../controller/bookmark_controller.dart';
 import '../controller/download_controller.dart';
 import '../controller/search_controller.dart';
+import '../global/constants/colors_resources.dart';
 import 'download/components/download_model.dart';
 
 class UrlPdfScreen extends StatelessWidget {
@@ -24,7 +25,12 @@ class UrlPdfScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(book.bookName, maxLines: 1, overflow: TextOverflow.ellipsis),
+        title: Text(book.bookName,
+            style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: ColorRes.primaryColor,
+        ), maxLines: 1, overflow: TextOverflow.ellipsis),
         actions: [
           Obx(() => downloadController.isDownloading.value
               ? Padding(
@@ -44,7 +50,7 @@ class UrlPdfScreen extends StatelessWidget {
               downloadController.isBookDownloaded(book.pdfUrl)
                   ? Icons.download_done
                   : Icons.download,
-            ),
+            ), color: ColorRes.primaryColor,
             onPressed: () async {
               if (!downloadController.isBookDownloaded(book.pdfUrl)) {
                 await downloadController.downloadAndSavePdf(book);
@@ -58,12 +64,12 @@ class UrlPdfScreen extends StatelessWidget {
             },
           )),
           IconButton(
-            icon: const Icon(Icons.bookmark_add),
+            icon: const Icon(Icons.bookmark_add), color: ColorRes.primaryColor,
             onPressed: () => _showAddBookmarkDialog(
                 context, bookmarkController, searchController),
           ),
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search), color: ColorRes.primaryColor,
             onPressed: () =>
                 _showSearchDialog(context, searchController, pdfViewerController),
           ),

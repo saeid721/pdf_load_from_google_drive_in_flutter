@@ -23,7 +23,13 @@ class DownloadScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: ColorRes.primaryColor),
         centerTitle: true,
-        title: const Text('Downloaded Books'),
+        title: const Text('Downloaded Books',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: ColorRes.primaryColor,
+          ),
+        ),
         actions: [
           Obx(() {
             if (downloadController.isDownloading.value) {
@@ -36,7 +42,7 @@ class DownloadScreen extends StatelessWidget {
                     child: CircularProgressIndicator(
                       value: downloadController.downloadProgress.value,
                       strokeWidth: 2,
-                      color: Colors.white,
+                      color: ColorRes.textColor,
                     ),
                   ),
                 ),
@@ -47,9 +53,9 @@ class DownloadScreen extends StatelessWidget {
         ],
       ),
       body: Obx(() {
-        final downloadBook = downloadController.downloadBooks;
+        final books = downloadController.downloadBooks;
 
-        if (downloadBook.isEmpty) {
+        if (books.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +67,7 @@ class DownloadScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'No Book downloaded yet',
+                  'No books downloaded yet',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[600],
@@ -70,7 +76,7 @@ class DownloadScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Your downloaded downloadBook will appear here',
+                  'Your downloaded books will appear here',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[500],
@@ -82,10 +88,10 @@ class DownloadScreen extends StatelessWidget {
         }
 
         return ListView.builder(
-          itemCount: downloadBook.length,
+          itemCount: books.length,
           itemBuilder: (ctx, i) => _buildDownloadBookItem(
             downloadController,
-            downloadBook[i],
+            books[i],
           ),
         );
       }),
@@ -95,6 +101,7 @@ class DownloadScreen extends StatelessWidget {
           if (index == 0) {
             Get.off(() => const HomeScreen());
           } else if (index == 1) {
+            // We're already on this screen
           } else if (index == 2) {
             Get.off(() => const BookmarksScreen());
           }
@@ -111,13 +118,14 @@ class DownloadScreen extends StatelessWidget {
   }
 
   Widget _buildDownloadBookItem(
-      DownloadController downloadController, DownloadBooks downloadBook) {
+      DownloadController downloadController,
+      DownloadBooks book) {
     return Dismissible(
-      key: Key(downloadBook.pdfUrl),
+      key: Key(book.pdfUrl),
       background: Container(
         color: Colors.red,
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20),
+        padding: const EdgeInsets.only(right: 10),
         child: const Icon(Icons.delete, color: Colors.white),
       ),
       direction: DismissDirection.endToStart,
@@ -126,8 +134,7 @@ class DownloadScreen extends StatelessWidget {
           context: Get.context!,
           builder: (context) => AlertDialog(
             title: const Text('Delete Book'),
-            content: Text(
-                'Are you sure you want to delete "${downloadBook.bookName}"?\n\nThis will remove the PDF file from your device.'),
+            content: Text('Are you sure you want to delete "${book.bookName}"?\n\nThis will remove the PDF file from your device.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -135,30 +142,29 @@ class DownloadScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child:
-                    const Text('Delete', style: TextStyle(color: Colors.red)),
+                child: const Text('Delete', style: TextStyle(color: Colors.red)),
               ),
             ],
           ),
         );
       },
       onDismissed: (direction) {
-        downloadController.removeDownloadBook(downloadBook);
+        downloadController.removeDownloadBook(book);
         Get.snackbar(
           'Book Deleted',
-          '"${downloadBook.bookName}" has been removed from downloads',
+          '"${book.bookName}" has been removed from downloads',
           snackPosition: SnackPosition.BOTTOM,
         );
       },
       child: DownloadBookListWidget(
         onTap: () {
-          Get.find<PdfController>().setPdfUrl(downloadBook.pdfUrl);
-          Get.to(() => UrlPdfScreen(book: downloadBook));
+          Get.find<PdfController>().setPdfUrl(book.pdfUrl);
+          Get.to(() => UrlPdfScreen(book: book));
         },
-        imageUrl: downloadBook.imageUrl,
-        bookName: downloadBook.bookName,
-        authorName: downloadBook.authorName,
-        shortDescription: downloadBook.shortDescription,
+        imageUrl: book.imageUrl,
+        bookName: book.bookName,
+        authorName: book.authorName,
+        shortDescription: book.shortDescription,
       ),
     );
   }

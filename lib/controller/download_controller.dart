@@ -42,8 +42,7 @@ class DownloadController extends GetxController {
   }
 
   Future<void> loadDownloadBooks() async {
-    final List<Map<String, dynamic>> maps =
-        await database.query('downloadBooks');
+    final List<Map<String, dynamic>> maps = await database.query('downloadBooks');
     downloadBooks.value = List.generate(maps.length, (i) {
       return DownloadBooks.fromMap(maps[i]);
     });
@@ -121,7 +120,7 @@ class DownloadController extends GetxController {
 
         // Listen to the stream and update progress
         await response.stream.listen(
-          (List<int> chunk) {
+              (List<int> chunk) {
             bytes.addAll(chunk);
             receivedBytes += chunk.length;
             if (totalBytes > 0) {
