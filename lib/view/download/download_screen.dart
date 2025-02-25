@@ -47,9 +47,9 @@ class DownloadScreen extends StatelessWidget {
         ],
       ),
       body: Obx(() {
-        final books = downloadController.downloadBooks;
+        final downloadBook = downloadController.downloadBooks;
 
-        if (books.isEmpty) {
+        if (downloadBook.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +61,7 @@ class DownloadScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'No books downloaded yet',
+                  'No Book downloaded yet',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[600],
@@ -70,7 +70,7 @@ class DownloadScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Your downloaded books will appear here',
+                  'Your downloaded downloadBook will appear here',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[500],
@@ -82,10 +82,10 @@ class DownloadScreen extends StatelessWidget {
         }
 
         return ListView.builder(
-          itemCount: books.length,
+          itemCount: downloadBook.length,
           itemBuilder: (ctx, i) => _buildDownloadBookItem(
             downloadController,
-            books[i],
+            downloadBook[i],
           ),
         );
       }),
@@ -95,7 +95,6 @@ class DownloadScreen extends StatelessWidget {
           if (index == 0) {
             Get.off(() => const HomeScreen());
           } else if (index == 1) {
-            // We're already on this screen
           } else if (index == 2) {
             Get.off(() => const BookmarksScreen());
           }
@@ -112,9 +111,9 @@ class DownloadScreen extends StatelessWidget {
   }
 
   Widget _buildDownloadBookItem(
-      DownloadController downloadController, DownloadBooks book) {
+      DownloadController downloadController, DownloadBooks downloadBook) {
     return Dismissible(
-      key: Key(book.pdfUrl),
+      key: Key(downloadBook.pdfUrl),
       background: Container(
         color: Colors.red,
         alignment: Alignment.centerRight,
@@ -128,7 +127,7 @@ class DownloadScreen extends StatelessWidget {
           builder: (context) => AlertDialog(
             title: const Text('Delete Book'),
             content: Text(
-                'Are you sure you want to delete "${book.bookName}"?\n\nThis will remove the PDF file from your device.'),
+                'Are you sure you want to delete "${downloadBook.bookName}"?\n\nThis will remove the PDF file from your device.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -144,22 +143,22 @@ class DownloadScreen extends StatelessWidget {
         );
       },
       onDismissed: (direction) {
-        downloadController.removeDownloadBook(book);
+        downloadController.removeDownloadBook(downloadBook);
         Get.snackbar(
           'Book Deleted',
-          '"${book.bookName}" has been removed from downloads',
+          '"${downloadBook.bookName}" has been removed from downloads',
           snackPosition: SnackPosition.BOTTOM,
         );
       },
       child: DownloadBookListWidget(
         onTap: () {
-          Get.find<PdfController>().setPdfUrl(book.pdfUrl);
-          Get.to(() => UrlPdfScreen(book: book));
+          Get.find<PdfController>().setPdfUrl(downloadBook.pdfUrl);
+          Get.to(() => UrlPdfScreen(book: downloadBook));
         },
-        imageUrl: book.imageUrl,
-        bookName: book.bookName,
-        authorName: book.authorName,
-        shortDescription: book.shortDescription,
+        imageUrl: downloadBook.imageUrl,
+        bookName: downloadBook.bookName,
+        authorName: downloadBook.authorName,
+        shortDescription: downloadBook.shortDescription,
       ),
     );
   }
