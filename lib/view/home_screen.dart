@@ -11,6 +11,8 @@ import 'bookmarks_screen/bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
 import 'download/components/download_model.dart';
 import 'download/download_screen.dart';
+import 'recommended_books_screen/recommended_books_list_screen.dart';
+import 'trending_books_screen/trending_books_list_screen.dart';
 import 'widget/recommended_books_list_widget.dart';
 import 'widget/trending_books_list_widget.dart';
 
@@ -57,7 +59,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => TrendingBooksListScreen());
+                      },
                       child: const Padding(
                         padding: EdgeInsets.only(right: 10),
                         child: Text(
@@ -114,7 +118,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => RecommendedBooksListScreen());
+                      },
                       child: const Padding(
                         padding: EdgeInsets.only(right: 10),
                         child: Text(
