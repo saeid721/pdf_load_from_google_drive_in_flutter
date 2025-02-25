@@ -4,7 +4,7 @@ final List<RecommendedBooks> recommendedBooks = [
   RecommendedBooks(
     id: "1",
     imageUrl: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1614241041i/57203214.jpg",
-    pdfUrl: "https://drive.google.com/uc?export=download&id=13Inceg4dVUvcnzYhzdI-xhmTFL7FDoWJ",
+    pdfUrl: "https://drive.google.com/uc?export=download&id=1YpOPA9vtWE-n-wMvWZCfP3344q1zTNqe",
     bookName: "স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড",
     authorName: "পিনাকী ভট্টাচার্য",
     shortDescription: """আপনি যদি বর্তমান সময়ের একজন পলিটিক্যাল কিংবা হিউম্যান রাইটস এক্টিভিটিস হন, জার্নালিস্ট হন, অথবা একজন সচেতন নাগরিক হন এবং আপনি কংক্রিট নলেজ অর্জন করতে চান, তাহলে "স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড""",
@@ -71,6 +71,14 @@ final List<RecommendedBooks> recommendedBooks = [
     pdfUrl: "https://drive.google.com/uc?export=download&id=1VtgqcuoBdyWrzp4wz9mJSFj1W9j9GIGm",
     bookName: "বাংলাদেশ: রক্তের ঋণ",
     authorName: "অ্যান্থনি মাসকারেনহাস",
+    shortDescription: """পাকিস্তানি সাংবাদিক ম্যাসকারেনহাস ১৯৭১ সালে বাংলাদেশের মুক্তিযুদ্ধের সময় পাকিস্তানি সেনাবাহিনীর বর্বরতা (গণহত্যা, ধর্ষণ, অগ্নিসংযোগ) বিশ্বে প্রকাশ করেন। বইটি ১৯৭০-এর নির্বাচনে আওয়ামী লীগের জয় ও পাকিস্তানের ক্ষমতা অস্বীকার, ২৫ মার্চের "অপারেশন সার্চলাইট", বুদ্ধিজীবী-হিন্দু নিধন, মুক্তিবাহিনীর গেরিলা যুদ্ধ এবং ১ কোটি শরণার্থী সংকটের চিত্র তুলে ধরে। ভারতের হস্তক্ষেপ ও মার্কিন সমর্থনের সমালোচনা করা হয়। ম্যাসকারেনহাসের প্রত্যক্ষ সাক্ষ্য বিশ্বজনমত বদলে বাংলাদেশের প্রতি সমর্থন বাড়ায়। এই বই যুদ্ধের নির্মম সত্য ও মানবাধিকার সংগ্রামের অনবদ্য দলিল।""",
+  ),
+  RecommendedBooks(
+    id: "10",
+    imageUrl: "https://wafilife-media.wafilife.com/uploads/2023/04/6454991515920331354_n-250x353.jpg",
+    pdfUrl: "https://drive.google.com/uc?export=download&id=1-RWv-QsPR3_KaGUyvt9UNPqtsj9IhF60",
+    bookName: "মনের শক্তি",
+    authorName: "সাবিত রায়হান",
     shortDescription: """পাকিস্তানি সাংবাদিক ম্যাসকারেনহাস ১৯৭১ সালে বাংলাদেশের মুক্তিযুদ্ধের সময় পাকিস্তানি সেনাবাহিনীর বর্বরতা (গণহত্যা, ধর্ষণ, অগ্নিসংযোগ) বিশ্বে প্রকাশ করেন। বইটি ১৯৭০-এর নির্বাচনে আওয়ামী লীগের জয় ও পাকিস্তানের ক্ষমতা অস্বীকার, ২৫ মার্চের "অপারেশন সার্চলাইট", বুদ্ধিজীবী-হিন্দু নিধন, মুক্তিবাহিনীর গেরিলা যুদ্ধ এবং ১ কোটি শরণার্থী সংকটের চিত্র তুলে ধরে। ভারতের হস্তক্ষেপ ও মার্কিন সমর্থনের সমালোচনা করা হয়। ম্যাসকারেনহাসের প্রত্যক্ষ সাক্ষ্য বিশ্বজনমত বদলে বাংলাদেশের প্রতি সমর্থন বাড়ায়। এই বই যুদ্ধের নির্মম সত্য ও মানবাধিকার সংগ্রামের অনবদ্য দলিল।""",
   ),
   // More books can be added here
