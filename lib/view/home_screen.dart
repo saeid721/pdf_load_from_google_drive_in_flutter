@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pdf_viewer/view/url_pdf.dart';
+import 'package:pdf_viewer/view/url_pdf_screen.dart';
 import '../controller/pdf_controller.dart';
 import '../data/recommended_books_list.dart';
 import '../data/trending_books_list.dart';
@@ -9,8 +9,8 @@ import '../global/widget/global_container.dart';
 import '../global/widget/global_sizedbox.dart';
 import 'bookmarks_screen/bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
-import 'dwonload/components/download_model.dart';
-import 'dwonload/download_screen.dart';
+import 'download/components/download_model.dart';
+import 'download/download_screen.dart';
 import 'widget/recommended_books_list_widget.dart';
 import 'widget/trending_books_list_widget.dart';
 

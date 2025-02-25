@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../controller/pdf_controller.dart';
-import '../dwonload/components/download_model.dart';
-import '../dwonload/download_screen.dart';
+import '../../controller/bookmark_controller.dart';
+import '../../controller/download_controller.dart';
+import '../download/components/download_model.dart';
+import '../download/download_screen.dart';
 import '../home_screen.dart';
-import '../url_pdf.dart';
-import 'components/bookmark_model.dart';
+import '../url_pdf_screen.dart';
 
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<PdfController>();
+    final BookmarkController bookmarkController = Get.find();
 
     return Scaffold(
       appBar: AppBar(title: const Text('My Bookmarks')),
-      body: Obx(() => ListView.builder(
-            itemCount: controller.bookmarks.length,
-            itemBuilder: (ctx, i) =>
-                _buildBookmarkItem(controller.bookmarks[i]),
-          )),
+      body: Obx(
+            () => ListView.builder(
+          itemCount: bookmarkController.bookmarks.length,
+          itemBuilder: (ctx, i) => _buildBookmarkItem(bookmarkController.bookmarks[i]),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2,
         onTap: (index) {
@@ -35,31 +37,41 @@ class BookmarksScreen extends StatelessWidget {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.download), label: 'Download'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark), label: 'Bookmarks'),
+          BottomNavigationBarItem(icon: Icon(Icons.download), label: 'Download'),
+          BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Bookmarks'),
         ],
       ),
     );
   }
 
-  Widget _buildBookmarkItem(Bookmark bookmark) {
-    final controller = Get.find<PdfController>();
+  Widget _buildBookmarkItem(BookmarkModel bookmark) {
+    final PdfController pdfController = Get.find();
+    final BookmarkController bookmarkController = Get.find();
+    final DownloadController downloadController = Get.find();
+
     return ListTile(
-      title: Text(bookmark.message),
-      subtitle: Text(
-        DateFormat('MMM dd, yyyy - hh:mm a').format(bookmark.timestamp),
-        style: const TextStyle(color: Colors.grey, fontSize: 12),
+      title: Text('Page ${bookmark.pageNumber}'),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            bookmark.note,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            DateFormat('MMM dd, yyyy - hh:mm a').format(bookmark.dateAdded),
+            style: const TextStyle(color: Colors.grey, fontSize: 12),
+          ),
+        ],
       ),
       trailing: IconButton(
         icon: const Icon(Icons.delete),
-        onPressed: () => controller.removeBookmark(bookmark),
+        onPressed: () => bookmarkController.removeBookmark(bookmark),
       ),
       onTap: () {
-        controller.setPdfUrl(bookmark.pdfUrl);
-        // We don't have the full book info here, so we'll need to find it from downloads
-        final book = controller.downloadBooks.firstWhere(
+        pdfController.setPdfUrl(bookmark.pdfUrl);
+        final book = downloadController.downloadBooks.firstWhere(
               (b) => b.pdfUrl == bookmark.pdfUrl,
           orElse: () => DownloadBooks(
             imageUrl: '',

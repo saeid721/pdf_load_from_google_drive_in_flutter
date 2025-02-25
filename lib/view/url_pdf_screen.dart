@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../controller/pdf_controller.dart';
-import 'dwonload/components/download_model.dart';
+import '../controller/bookmark_controller.dart';
+import '../controller/download_controller.dart';
+import '../controller/search_controller.dart';
+import 'download/components/download_model.dart';
 
 class UrlPdfScreen extends StatelessWidget {
   final DownloadBooks book;
@@ -12,52 +15,105 @@ class UrlPdfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pdfController = Get.find<PdfController>();
+    final bookmarkController = Get.find<BookmarkController>();
+    final downloadController = Get.find<DownloadController>();
+    final searchController = Get.find<PdfSearchController>();
     final pdfViewerController = PdfViewerController();
 
-    // Set the PDF URL when widget initializes
     pdfController.setPdfUrl(book.pdfUrl);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(book.bookName),
-        // title: Obx(() => Text(
-        //   pdfController.isSearching.value
-        //       ? 'Page ${pdfController.currentPage}/${pdfController.totalPages}'
-        //       : book?.bookName ?? 'PDF Viewer',
-        // )),
+        title: Text(book.bookName, maxLines: 1, overflow: TextOverflow.ellipsis),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.download),
+          Obx(() => downloadController.isDownloading.value
+              ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(
+                value: downloadController.downloadProgress.value,
+                strokeWidth: 2,
+                color: Colors.white,
+              ),
+            ),
+          )
+              : IconButton(
+            icon: Icon(
+              downloadController.isBookDownloaded(book.pdfUrl)
+                  ? Icons.download_done
+                  : Icons.download,
+            ),
             onPressed: () async {
-              await pdfController.downloadAndSavePdf(book);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${book.bookName} downloading...')),
-              );
+              if (!downloadController.isBookDownloaded(book.pdfUrl)) {
+                await downloadController.downloadAndSavePdf(book);
+              } else {
+                Get.snackbar(
+                  'Already Downloaded',
+                  '${book.bookName} is already in your downloads',
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+              }
             },
-          ),
+          )),
           IconButton(
             icon: const Icon(Icons.bookmark_add),
-            onPressed: () => _showAddBookmarkDialog(context, pdfController),
+            onPressed: () => _showAddBookmarkDialog(
+                context, bookmarkController, searchController),
           ),
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () =>
-                _showSearchDialog(context, pdfController, pdfViewerController),
+                _showSearchDialog(context, searchController, pdfViewerController),
           ),
         ],
       ),
-      body: SfPdfViewer.network(
-        book.pdfUrl,
-        controller: pdfViewerController,
-        onDocumentLoaded: (details) =>
-            pdfController.totalPages.value = details.document.pages.count,
-        onPageChanged: (details) =>
-            pdfController.currentPage.value = details.newPageNumber,
+      body: Column(
+        children: [
+          Obx(() => searchController.isSearching.value
+              ? Container(
+            padding: const EdgeInsets.all(8),
+            color: Colors.blue.withOpacity(0.1),
+            child: Row(
+              children: [
+                Icon(Icons.info_outline, color: Colors.blue[700], size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  'Page ${searchController.currentPage.value}/${searchController.totalPages.value}',
+                  style: TextStyle(color: Colors.blue[700]),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    searchController.toggleSearching(false);
+                  },
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
+          )
+              : const SizedBox.shrink()),
+          Expanded(
+            child: SfPdfViewer.network(
+              book.pdfUrl,
+              controller: pdfViewerController,
+              onDocumentLoaded: (details) =>
+                  searchController.setTotalPages(details.document.pages.count),
+              onPageChanged: (details) =>
+                  searchController.setCurrentPage(details.newPageNumber),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _showAddBookmarkDialog(BuildContext context, PdfController controller) {
+  void _showAddBookmarkDialog(
+      BuildContext context,
+      BookmarkController bookmarkController,
+      PdfSearchController searchController
+      ) {
     final TextEditingController textController = TextEditingController();
 
     showDialog(
@@ -73,7 +129,7 @@ class UrlPdfScreen extends StatelessWidget {
             Icon(Icons.bookmark, color: Theme.of(context).primaryColor),
             const SizedBox(width: 8.0),
             Text(
-              'Bookmark Page ${controller.currentPage}',
+              'Bookmark Page ${searchController.currentPage.value}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,
@@ -100,7 +156,7 @@ class UrlPdfScreen extends StatelessWidget {
           ),
         ),
         actionsPadding:
-            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
@@ -112,8 +168,8 @@ class UrlPdfScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (textController.text.trim().isNotEmpty) {
-                controller.addBookmark(
-                  controller.currentPage.value,
+                bookmarkController.addBookmark(
+                  searchController.currentPage.value,
                   textController.text.trim(),
                 );
                 Navigator.pop(ctx);
@@ -128,7 +184,7 @@ class UrlPdfScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               elevation: 2.0,
             ),
             child: const Text(
@@ -142,10 +198,10 @@ class UrlPdfScreen extends StatelessWidget {
   }
 
   void _showSearchDialog(
-    BuildContext context,
-    PdfController pdfController,
-    PdfViewerController pdfViewerController,
-  ) {
+      BuildContext context,
+      PdfSearchController searchController,
+      PdfViewerController pdfViewerController,
+      ) {
     final TextEditingController pageController = TextEditingController();
     String? errorMessage;
 
@@ -163,7 +219,7 @@ class UrlPdfScreen extends StatelessWidget {
               Icon(Icons.search, color: Theme.of(context).primaryColor),
               const SizedBox(width: 8.0),
               Text(
-                'Go to Page (1-${pdfController.totalPages.value})',
+                'Go to Page (1-${searchController.totalPages.value})',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
@@ -180,7 +236,7 @@ class UrlPdfScreen extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: 'Enter page number',
                 hintStyle: const TextStyle(color: Colors.grey),
-                suffixText: '/ ${pdfController.totalPages.value}',
+                suffixText: '/ ${searchController.totalPages.value}',
                 suffixStyle: const TextStyle(color: Colors.black54),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -195,9 +251,9 @@ class UrlPdfScreen extends StatelessWidget {
                 setState(() {
                   if (page == null ||
                       page < 1 ||
-                      page > pdfController.totalPages.value) {
+                      page > searchController.totalPages.value) {
                     errorMessage =
-                        'Enter a valid page (1-${pdfController.totalPages.value})';
+                    'Enter a valid page (1-${searchController.totalPages.value})';
                   } else {
                     errorMessage = null;
                   }
@@ -206,7 +262,7 @@ class UrlPdfScreen extends StatelessWidget {
             ),
           ),
           actionsPadding:
-              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -220,9 +276,9 @@ class UrlPdfScreen extends StatelessWidget {
                 final page = int.tryParse(pageController.text);
                 if (page != null &&
                     page > 0 &&
-                    page <= pdfController.totalPages.value) {
+                    page <= searchController.totalPages.value) {
                   pdfViewerController.jumpToPage(page);
-                  pdfController.isSearching.value = true;
+                  searchController.toggleSearching(true);
                   Navigator.pop(context);
                 } else {
                   setState(() {
@@ -235,7 +291,7 @@ class UrlPdfScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 elevation: 2.0,
               ),
               child: const Text(

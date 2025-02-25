@@ -1,12 +1,12 @@
-import 'dart:convert';
-
 class Bookmark {
+  int? id;
   final String pdfUrl;
   final int page;
   final String message;
   final DateTime timestamp;
 
   Bookmark({
+    this.id,
     required this.pdfUrl,
     required this.page,
     required this.message,
@@ -15,6 +15,7 @@ class Bookmark {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'pdfUrl': pdfUrl,
       'page': page,
       'message': message,
@@ -22,16 +23,13 @@ class Bookmark {
     };
   }
 
-  factory Bookmark.fromMap(Map<String, dynamic> map) {
+  factory Bookmark.fromJson(Map<String, dynamic> json) {
     return Bookmark(
-      pdfUrl: map['pdfUrl'],
-      page: map['page'],
-      message: map['message'],
-      timestamp: DateTime.parse(map['timestamp']),
+      id: json['id'],
+      pdfUrl: json['pdfUrl'],
+      page: json['page'],
+      message: json['message'],
+      timestamp: DateTime.parse(json['timestamp']),
     );
   }
-
-  String toJson() => json.encode(toMap());
-  factory Bookmark.fromJson(String source) =>
-      Bookmark.fromMap(json.decode(source));
 }

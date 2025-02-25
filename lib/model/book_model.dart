@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 class TrendingBooks {
+  final String id;
   final String imageUrl;
   final String pdfUrl;
   final String bookName;
@@ -8,6 +7,7 @@ class TrendingBooks {
   String? shortDescription;
 
   TrendingBooks({
+    required this.id,
     required this.imageUrl,
     required this.pdfUrl,
     required this.bookName,
@@ -17,6 +17,7 @@ class TrendingBooks {
 }
 
 class RecommendedBooks {
+  final String id;
   final String imageUrl;
   final String pdfUrl;
   final String bookName;
@@ -24,6 +25,7 @@ class RecommendedBooks {
   String? shortDescription;
 
   RecommendedBooks({
+    required this.id,
     required this.imageUrl,
     required this.pdfUrl,
     required this.bookName,

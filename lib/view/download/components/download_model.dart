@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 class DownloadBooks {
+  final int? id;
   final String imageUrl;
   final String pdfUrl;
   final String bookName;
@@ -8,6 +7,7 @@ class DownloadBooks {
   final String shortDescription;
 
   DownloadBooks({
+    this.id,
     required this.imageUrl,
     required this.pdfUrl,
     required this.bookName,
@@ -17,6 +17,7 @@ class DownloadBooks {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'imageUrl': imageUrl,
       'pdfUrl': pdfUrl,
       'bookName': bookName,
@@ -25,8 +26,9 @@ class DownloadBooks {
     };
   }
 
-  factory DownloadBooks.fromMap(Map<String, dynamic> map) {
+  static DownloadBooks fromMap(Map<String, dynamic> map) {
     return DownloadBooks(
+      id: map['id'],
       imageUrl: map['imageUrl'],
       pdfUrl: map['pdfUrl'],
       bookName: map['bookName'],
@@ -34,8 +36,4 @@ class DownloadBooks {
       shortDescription: map['shortDescription'],
     );
   }
-
-  String toJson() => json.encode(toMap());
-  factory DownloadBooks.fromJson(String source) =>
-      DownloadBooks.fromMap(json.decode(source));
 }
