@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../global/constants/colors_resources.dart';
 
 class DownloadBookListWidget extends StatelessWidget {

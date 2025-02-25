@@ -30,7 +30,7 @@ class HomeBookListWidget extends StatelessWidget {
             onTap: onTap,
             child: Material(
               color: Colors.transparent,
-              elevation: 2.0,
+              elevation: 1,
               shadowColor: Colors.black.withOpacity(1),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(15.0),

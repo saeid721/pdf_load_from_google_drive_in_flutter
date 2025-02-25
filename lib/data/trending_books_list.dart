@@ -1,16 +1,13 @@
-
-// List of books with their image URLs and PDF URLs
 import '../model/book_model.dart';
 
 final List<TrendingBooks> trendingBooks = [
   TrendingBooks(
     id: "1",
     imageUrl: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1614241041i/57203214.jpg",
-    pdfUrl: "https://drive.google.com/uc?export=download&id=13Inceg4dVUvcnzYhzdI-xhmTFL7FDoWJ",
+    pdfUrl: "https://drive.google.com/uc?export=download&id=1YpOPA9vtWE-n-wMvWZCfP3344q1zTNqe",
     bookName: "স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড",
     authorName: "পিনাকী ভট্টাচার্য",
-    shortDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-
+    shortDescription: """আপনি যদি বর্তমান সময়ের একজন পলিটিক্যাল কিংবা হিউম্যান রাইটস এক্টিভিটিস হন, জার্নালিস্ট হন, অথবা একজন সচেতন নাগরিক হন এবং আপনি কংক্রিট নলেজ অর্জন করতে চান, তাহলে "স্বাধীনতা উত্তর বাংলাদেশ - প্রথম খণ্ড""",
   ),
   TrendingBooks(
     id: "2",
