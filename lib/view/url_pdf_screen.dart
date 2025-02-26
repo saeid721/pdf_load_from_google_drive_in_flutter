@@ -129,7 +129,8 @@ class UrlPdfScreen extends StatelessWidget {
   void _showAddBookmarkDialog(
       BuildContext context,
       BookmarkController bookmarkController,
-      PdfSearchController searchController) {
+      PdfSearchController searchController,
+      ) {
     final TextEditingController textController = TextEditingController();
 
     showDialog(
@@ -153,40 +154,33 @@ class UrlPdfScreen extends StatelessWidget {
             ),
           ],
         ),
-        content: SizedBox(
-          width: double.maxFinite,
-          child: TextField(
-            controller: textController,
-            decoration: InputDecoration(
-              labelText: 'Add a Note',
-              hintText: 'Enter your bookmark note here...',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              filled: true,
-              fillColor: Colors.grey[100],
-              contentPadding: const EdgeInsets.all(12.0),
+        content: TextField(
+          controller: textController,
+          decoration: InputDecoration(
+            labelText: 'Add a Note',
+            hintText: 'Enter your bookmark note here...',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            maxLines: 3,
-            keyboardType: TextInputType.text,
+            filled: true,
+            fillColor: Colors.grey[100],
+            contentPadding: const EdgeInsets.all(12.0),
           ),
+          maxLines: 3,
+          keyboardType: TextInputType.text,
         ),
-        actionsPadding:
-            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.grey[600],
-            ),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () {
               if (textController.text.trim().isNotEmpty) {
                 bookmarkController.addBookmark(
-                  searchController.currentPage.value,
-                  textController.text.trim(),
+                  pageNumber: searchController.currentPage.value,
+                  bookName: 'Sample Book Name', // Replace with actual book name
+                  note: textController.text.trim(),
                 );
                 Navigator.pop(ctx);
               } else {
@@ -195,18 +189,7 @@ class UrlPdfScreen extends StatelessWidget {
                 );
               }
             },
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              elevation: 2.0,
-            ),
-            child: const Text(
-              'Save Bookmark',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: const Text('Save Bookmark'),
           ),
         ],
       ),

@@ -5,11 +5,11 @@ import '../../controller/pdf_controller.dart';
 import '../../controller/bookmark_controller.dart';
 import '../../controller/download_controller.dart';
 import '../../global/constants/colors_resources.dart';
-import '../download/components/download_model.dart';
 import '../download/download_screen.dart';
 import '../home_screen.dart';
 import '../url_pdf_screen.dart';
 import 'components/bookmark_model.dart';
+import 'components/bookmarks_list_widget.dart';
 
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({super.key});
@@ -120,43 +120,54 @@ class BookmarksScreen extends StatelessWidget {
   Widget _buildBookmarkItem(BookmarkModel bookmark) {
     final PdfController pdfController = Get.find();
     final BookmarkController bookmarkController = Get.find();
-    final DownloadController downloadController = Get.find();
 
-    return ListTile(
-      title: Text('Page ${bookmark.pageNumber}'),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            bookmark.note,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(
-            DateFormat('MMM dd, yyyy - hh:mm a').format(bookmark.dateAdded),
-            style: const TextStyle(color: Colors.grey, fontSize: 12),
-          ),
-        ],
-      ),
-      trailing: IconButton(
-        icon: const Icon(Icons.delete),
+    return Dismissible(
+      key: Key(bookmark.id.toString()),
+      background: Container(
         color: Colors.red,
-        onPressed: () => bookmarkController.removeBookmark(bookmark),
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 10),
+        child: const Icon(Icons.delete, color: Colors.white),
       ),
-      onTap: () {
-        pdfController.setPdfUrl(bookmark.pdfUrl);
-        final book = downloadController.downloadBooks.firstWhere(
-          (b) => b.pdfUrl == bookmark.pdfUrl,
-          orElse: () => DownloadBooks(
-            imageUrl: '',
-            pdfUrl: bookmark.pdfUrl,
-            bookName: 'Unknown Book',
-            authorName: 'Unknown Author',
-            shortDescription: '',
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) async {
+        return await showDialog(
+          context: Get.context!,
+          builder: (context) => AlertDialog(
+            title: const Text('Delete Bookmark'),
+            content: Text('Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the Bookmark from your device.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Delete', style: TextStyle(color: Colors.red)),
+              ),
+            ],
           ),
         );
-        Get.to(() => UrlPdfScreen(book: book));
       },
+      onDismissed: (direction) {
+        bookmarkController.removeBookmark(bookmark);
+        Get.snackbar(
+          'Bookmark Deleted',
+          '"${bookmark.note}" has been removed from Bookmark',
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      },
+      child: BookmarksListWidget(
+        onTap: () {
+          pdfController.setPdfUrl(bookmark.pdfUrl);
+          //Get.to(() => UrlPdfScreen(book: bookmark));
+        },
+        imageUrl: '',
+        bookName: bookmark.bookName,
+        pageNumber: bookmark.pageNumber,
+        dateAdded: bookmark.dateAdded,
+        note: bookmark.note,
+      ),
     );
   }
 }
