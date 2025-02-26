@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../global/constants/colors_resources.dart';
+import '../../../global/constants/colors_resources.dart';
 
-class RecommendedBookListWidget extends StatelessWidget {
+class RecommendedBooksWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String bookName; // Changed to optional
   final String authorName; // Changed to optional
@@ -15,7 +15,7 @@ class RecommendedBookListWidget extends StatelessWidget {
   final String? imageUrl; // Optional image URL
   final double imageSize; // Image size
 
-  const RecommendedBookListWidget({
+  const RecommendedBooksWidget({
     required this.onTap,
     required this.bookName, // Changed to optional
     required this.authorName, // Changed to optional

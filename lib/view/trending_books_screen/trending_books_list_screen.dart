@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdf_viewer/view/url_pdf_screen.dart';
 import '../../controller/pdf_controller.dart';
-import '../../data/trending_books_list.dart'; // Make sure this is the correct path
+import '../../data/trending_books_list.dart';
 import '../../global/constants/colors_resources.dart';
 import '../../global/widget/global_container.dart';
 import '../../global/widget/global_sizedbox.dart';
 import '../bookmarks_screen/bookmarks_screen.dart';
-import '../custom_drawer_screen.dart';
 import '../download/components/download_model.dart';
 import '../download/download_screen.dart';
-import '../widget/trending_books_list_widget.dart';
+import 'components/trending_books_list_widget.dart';
 
 class TrendingBooksListScreen extends StatelessWidget {
   const TrendingBooksListScreen({super.key});

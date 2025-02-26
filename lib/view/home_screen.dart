@@ -11,10 +11,10 @@ import 'bookmarks_screen/bookmarks_screen.dart';
 import 'custom_drawer_screen.dart';
 import 'download/components/download_model.dart';
 import 'download/download_screen.dart';
+import 'recommended_books_screen/components/recommended_books_widget.dart';
 import 'recommended_books_screen/recommended_books_list_screen.dart';
+import 'trending_books_screen/components/trending_books_widget.dart';
 import 'trending_books_screen/trending_books_list_screen.dart';
-import 'widget/recommended_books_list_widget.dart';
-import 'widget/trending_books_list_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: trendingBooks.map((book) {
-                          return TrendingBooksListWidget(
+                          return TrendingBooksWidget(
                             onTap: () {
                               pdfController.setPdfUrl(book.pdfUrl);
                               Get.to(() => UrlPdfScreen(
@@ -144,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       child: Column(
                         children: recommendedBooks.map((recommendedBooks) {
-                          return RecommendedBookListWidget(
+                          return RecommendedBooksWidget(
                             onTap: () {
                               pdfController.setPdfUrl(recommendedBooks.pdfUrl);
                               Get.to(() => UrlPdfScreen(

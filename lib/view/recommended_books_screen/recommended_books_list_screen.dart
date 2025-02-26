@@ -9,7 +9,7 @@ import '../../global/widget/global_sizedbox.dart';
 import '../bookmarks_screen/bookmarks_screen.dart';
 import '../download/components/download_model.dart';
 import '../download/download_screen.dart';
-import '../widget/trending_books_list_widget.dart';
+import '../trending_books_screen/components/trending_books_list_widget.dart';
 
 class RecommendedBooksListScreen extends StatelessWidget {
   const RecommendedBooksListScreen({super.key});
@@ -37,48 +37,45 @@ class RecommendedBooksListScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+            padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5  ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GlobalContainer(
                   width: Get.width,
                   color: ColorRes.backgroundColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: GridView.builder(
-                      itemCount: recommendedBooks.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 5,
-                        crossAxisSpacing: 5,
-                        mainAxisExtent: 265,
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      itemBuilder: (ctx, index) {
-                        final book = recommendedBooks[index];
-                        return TrendingBooksListWidget(
-                          onTap: () {
-                            pdfController.setPdfUrl(book.pdfUrl);
-                            Get.to(() => UrlPdfScreen(
-                                  book: DownloadBooks(
-                                    imageUrl: book.imageUrl,
-                                    pdfUrl: book.pdfUrl,
-                                    bookName: book.bookName,
-                                    authorName: book.authorName,
-                                    shortDescription:
-                                        book.shortDescription ?? '',
-                                  ),
-                                ));
-                          },
-                          imageUrl: book.imageUrl,
-                          bookName: book.bookName,
-                        );
-                      },
+                  child: GridView.builder(
+                    itemCount: recommendedBooks.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 5,
+                      mainAxisExtent: 263,
                     ),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    itemBuilder: (ctx, index) {
+                      final book = recommendedBooks[index];
+                      return TrendingBooksListWidget(
+                        onTap: () {
+                          pdfController.setPdfUrl(book.pdfUrl);
+                          Get.to(() => UrlPdfScreen(
+                                book: DownloadBooks(
+                                  imageUrl: book.imageUrl,
+                                  pdfUrl: book.pdfUrl,
+                                  bookName: book.bookName,
+                                  authorName: book.authorName,
+                                  shortDescription:
+                                      book.shortDescription ?? '',
+                                ),
+                              ));
+                        },
+                        imageUrl: book.imageUrl,
+                        bookName: book.bookName,
+                      );
+                    },
                   ),
                 ),
                 sizedBoxH(10),
