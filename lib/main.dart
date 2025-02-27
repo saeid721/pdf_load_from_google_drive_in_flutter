@@ -4,7 +4,8 @@ import 'controller/pdf_controller.dart';
 import 'global/constants/colors_resources.dart';
 import 'view/splash_screen/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Get.put(PdfController());
   runApp(const MyApp());
 }

@@ -11,6 +11,7 @@ import '../model/model.dart';
 import 'contact_screen/contact_screen.dart';
 import 'home_screen.dart';
 import 'privacy_policy_screen/privacy_policy_screen.dart';
+import 'weathers/weather_screen.dart';
 
 class CustomDrawerScreen extends StatefulWidget {
   const CustomDrawerScreen({super.key});
@@ -28,6 +29,7 @@ class _CustomDrawerScreenState extends State<CustomDrawerScreen> {
     GlobalMenuModel(img: Images.shareInc, text: 'Share'),
     GlobalMenuModel(img: Images.ratingInc, text: 'Rating'),
     GlobalMenuModel(img: Images.policyInc, text: 'Privacy & Policy'),
+    GlobalMenuModel(img: Images.policyInc, text: 'Weather'),
   ];
 
   // Function to handle app sharing
@@ -92,6 +94,9 @@ class _CustomDrawerScreenState extends State<CustomDrawerScreen> {
                               break;
                             case 4:
                               Get.to(() => const AppPrivacyPolicyScreen());
+                              break;
+                            case 5:
+                              Get.to(() => const WeatherScreen());
                               break;
                           }
                         },

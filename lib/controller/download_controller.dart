@@ -110,41 +110,19 @@ class DownloadController extends GetxController {
       downloadProgress.value = 0.0;
 
       // Make HTTP request to download the PDF
-      final request = http.Request('GET', Uri.parse(book.pdfUrl));
-      final response = await request.send();
+      final response = await http.get(Uri.parse(book.pdfUrl));
 
       if (response.statusCode == 200) {
-        final totalBytes = response.contentLength ?? 0;
-        List<int> bytes = [];
-        int receivedBytes = 0;
+        // Save the file
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
 
-        // Listen to the stream and update progress
-        await response.stream.listen(
-              (List<int> chunk) {
-            bytes.addAll(chunk);
-            receivedBytes += chunk.length;
-            if (totalBytes > 0) {
-              downloadProgress.value = receivedBytes / totalBytes;
-            }
-          },
-          onDone: () async {
-            // Save the file
-            final file = File(filePath);
-            await file.writeAsBytes(bytes);
+        // Add to download list
+        await addDownloadBook(book);
 
-            // Add to download list
-            await addDownloadBook(book);
-
-            isDownloading.value = false;
-            downloadProgress.value = 1.0;
-            Get.snackbar('Success', '${book.bookName} downloaded successfully');
-          },
-          onError: (e) {
-            isDownloading.value = false;
-            throw Exception('Download failed: $e');
-          },
-          cancelOnError: true,
-        ).asFuture();
+        isDownloading.value = false;
+        downloadProgress.value = 1.0;
+        Get.snackbar('Success', '${book.bookName} downloaded successfully');
       } else {
         isDownloading.value = false;
         throw Exception('Server error: ${response.statusCode}');

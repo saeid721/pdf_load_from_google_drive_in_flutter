@@ -9,9 +9,10 @@ import '../global/constants/colors_resources.dart';
 import 'download/components/download_model.dart';
 
 class UrlPdfScreen extends StatelessWidget {
-  final DownloadBooks book;
+  final DownloadBooks downloadBooks;
 
-  const UrlPdfScreen({super.key, required this.book});
+
+  const UrlPdfScreen({super.key, required this.downloadBooks});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class UrlPdfScreen extends StatelessWidget {
     final searchController = Get.find<PdfSearchController>();
     final pdfViewerController = PdfViewerController();
 
-    pdfController.setPdfUrl(book.pdfUrl);
+    pdfController.setPdfUrl(downloadBooks.pdfUrl);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +31,7 @@ class UrlPdfScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: ColorRes.primaryColor),
         centerTitle: true,
-        title: Text(book.bookName,
+        title: Text(downloadBooks.bookName,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -41,36 +42,36 @@ class UrlPdfScreen extends StatelessWidget {
         actions: [
           Obx(() => downloadController.isDownloading.value
               ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      value: downloadController.downloadProgress.value,
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(
+                value: downloadController.downloadProgress.value,
+                strokeWidth: 2,
+                color: Colors.white,
+              ),
+            ),
+          )
               : IconButton(
-                  icon: Icon(
-                    downloadController.isBookDownloaded(book.pdfUrl)
-                        ? Icons.download_done
-                        : Icons.download,
-                  ),
-                  color: ColorRes.primaryColor,
-                  onPressed: () async {
-                    if (!downloadController.isBookDownloaded(book.pdfUrl)) {
-                      await downloadController.downloadAndSavePdf(book);
-                    } else {
-                      Get.snackbar(
-                        'Already Downloaded',
-                        '${book.bookName} is already in your downloads',
-                        snackPosition: SnackPosition.BOTTOM,
-                      );
-                    }
-                  },
-                )),
+            icon: Icon(
+              downloadController.isBookDownloaded(downloadBooks.pdfUrl)
+                  ? Icons.download_done
+                  : Icons.download,
+            ),
+            color: ColorRes.primaryColor,
+            onPressed: () async {
+              if (!downloadController.isBookDownloaded(downloadBooks.pdfUrl)) {
+                await downloadController.downloadAndSavePdf(downloadBooks);
+              } else {
+                Get.snackbar(
+                  'Already Downloaded',
+                  '${downloadBooks.bookName} is already in your downloads',
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+              }
+            },
+          )),
           IconButton(
             icon: const Icon(Icons.bookmark_add),
             color: ColorRes.primaryColor,
@@ -89,31 +90,31 @@ class UrlPdfScreen extends StatelessWidget {
         children: [
           Obx(() => searchController.isSearching.value
               ? Container(
-                  padding: const EdgeInsets.all(8),
-                  color: Colors.blue.withOpacity(0.1),
-                  child: Row(
-                    children: [
-                      Icon(Icons.info_outline,
-                          color: Colors.blue[700], size: 20),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Page ${searchController.currentPage.value}/${searchController.totalPages.value}',
-                        style: TextStyle(color: Colors.blue[700]),
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          searchController.toggleSearching(false);
-                        },
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  ),
-                )
+            padding: const EdgeInsets.all(8),
+            color: Colors.blue.withOpacity(0.1),
+            child: Row(
+              children: [
+                Icon(Icons.info_outline,
+                    color: Colors.blue[700], size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  'Page ${searchController.currentPage.value}/${searchController.totalPages.value}',
+                  style: TextStyle(color: Colors.blue[700]),
+                ),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    searchController.toggleSearching(false);
+                  },
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
+          )
               : const SizedBox.shrink()),
           Expanded(
             child: SfPdfViewer.network(
-              book.pdfUrl,
+              downloadBooks.pdfUrl,
               controller: pdfViewerController,
               onDocumentLoaded: (details) =>
                   searchController.setTotalPages(details.document.pages.count),
@@ -197,10 +198,10 @@ class UrlPdfScreen extends StatelessWidget {
   }
 
   void _showSearchDialog(
-    BuildContext context,
-    PdfSearchController searchController,
-    PdfViewerController pdfViewerController,
-  ) {
+      BuildContext context,
+      PdfSearchController searchController,
+      PdfViewerController pdfViewerController,
+      ) {
     final TextEditingController pageController = TextEditingController();
     String? errorMessage;
 
@@ -252,7 +253,7 @@ class UrlPdfScreen extends StatelessWidget {
                       page < 1 ||
                       page > searchController.totalPages.value) {
                     errorMessage =
-                        'Enter a valid page (1-${searchController.totalPages.value})';
+                    'Enter a valid page (1-${searchController.totalPages.value})';
                   } else {
                     errorMessage = null;
                   }
@@ -261,7 +262,7 @@ class UrlPdfScreen extends StatelessWidget {
             ),
           ),
           actionsPadding:
-              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -290,7 +291,7 @@ class UrlPdfScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 elevation: 2.0,
               ),
               child: const Text(

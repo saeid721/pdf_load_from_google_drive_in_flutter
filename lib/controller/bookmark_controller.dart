@@ -5,9 +5,9 @@ import '../view/bookmarks_screen/components/bookmark_model.dart';
 
 class BookmarkController extends GetxController {
   var bookmarks = <BookmarkModel>[].obs;
-  var pdfUrl = ''.obs;
   var isDownloading = false.obs;
   var downloadProgress = 0.0.obs;
+  var pdfUrl = ''.obs;
 
   late Database database;
 
@@ -17,7 +17,10 @@ class BookmarkController extends GetxController {
     _initDatabase();
   }
 
-  void setPdfUrl(String url) => pdfUrl.value = url;
+  void setPdfUrl(String url) {
+    pdfUrl.value = url;
+    loadBookmarks();
+  }
 
   // Initialize the SQLite database
   Future<void> _initDatabase() async {

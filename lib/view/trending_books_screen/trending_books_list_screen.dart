@@ -64,7 +64,7 @@ class TrendingBooksListScreen extends StatelessWidget {
                           onTap: () {
                             pdfController.setPdfUrl(book.pdfUrl);
                             Get.to(() => UrlPdfScreen(
-                                  book: DownloadBooks(
+                                  downloadBooks: DownloadBooks(
                                     imageUrl: book.imageUrl,
                                     pdfUrl: book.pdfUrl,
                                     bookName: book.bookName,

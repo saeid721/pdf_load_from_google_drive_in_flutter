@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../../controller/pdf_controller.dart';
 import '../../controller/bookmark_controller.dart';
-import '../../controller/download_controller.dart';
 import '../../global/constants/colors_resources.dart';
 import '../download/download_screen.dart';
 import '../home_screen.dart';
@@ -160,7 +158,7 @@ class BookmarksScreen extends StatelessWidget {
       child: BookmarksListWidget(
         onTap: () {
           pdfController.setPdfUrl(bookmark.pdfUrl);
-          //Get.to(() => UrlPdfScreen(book: bookmark));
+          //Get.to(() => UrlPdfScreen(downloadBooks: bookmark));
         },
         imageUrl: '',
         bookName: bookmark.bookName,

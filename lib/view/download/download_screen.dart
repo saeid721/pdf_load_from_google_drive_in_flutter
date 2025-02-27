@@ -159,7 +159,7 @@ class DownloadScreen extends StatelessWidget {
       child: DownloadBookListWidget(
         onTap: () {
           Get.find<PdfController>().setPdfUrl(book.pdfUrl);
-          Get.to(() => UrlPdfScreen(book: book));
+          Get.to(() => UrlPdfScreen(downloadBooks: book));
         },
         imageUrl: book.imageUrl,
         bookName: book.bookName,
