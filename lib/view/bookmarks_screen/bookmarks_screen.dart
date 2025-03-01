@@ -93,7 +93,8 @@ class BookmarksScreen extends StatelessWidget {
 
           return ListView.builder(
             itemCount: controller.bookmarks.length,
-            itemBuilder: (ctx, i) => _buildBookmarkItem(controller.bookmarks[i]),
+            itemBuilder: (ctx, i) =>
+                _buildBookmarkItem(controller.bookmarks[i]),
           );
         },
       ),
@@ -149,16 +150,16 @@ class BookmarksScreen extends StatelessWidget {
         onTap: () {
           pdfController.setPdfUrl(bookmark.pdfUrl);
           Get.to(() => UrlPdfScreen(
-            downloadBooks: DownloadBooks(
-              imageUrl: "",
-              pdfUrl: bookmark.pdfUrl,
-              bookName: bookmark.bookName,
-              authorName: "",
-              shortDescription: "",
-            ),
-          ));
+                downloadBooks: DownloadBooks(
+                  imageUrl: bookmark.imageUrl,
+                  pdfUrl: bookmark.pdfUrl,
+                  bookName: bookmark.bookName,
+                  authorName: '',
+                  shortDescription: '',
+                ),
+              ));
         },
-        imageUrl: '',
+        imageUrl: bookmark.imageUrl,
         bookName: bookmark.bookName,
         pageNumber: bookmark.pageNumber,
         dateAdded: bookmark.dateAdded,

@@ -4,12 +4,10 @@ import 'package:pdf_viewer/view/url_pdf_screen.dart';
 import '../../controller/pdf_controller.dart';
 import '../../data/trending_books_list.dart';
 import '../../global/constants/colors_resources.dart';
+import '../../global/widget/custom_bottom_navbar.dart';
 import '../../global/widget/global_container.dart';
 import '../../global/widget/global_sizedbox.dart';
-import '../bookmarks_screen/bookmarks_screen.dart';
 import '../download/components/download_model.dart';
-import '../download/download_screen.dart';
-import '../home_screen.dart';
 import 'components/trending_books_list_widget.dart';
 
 class TrendingBooksListScreen extends StatelessWidget {
@@ -88,25 +86,7 @@ class TrendingBooksListScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 0) {
-            Get.to(() => const HomeScreen());
-          } else if (index == 1) {
-            Get.to(() => const DownloadScreen());
-          } else if (index == 2) {
-            Get.to(() => const BookmarksScreen());
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.download), label: 'Download'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark), label: 'Bookmarks'),
-        ],
-      ),
+      bottomNavigationBar: const CustomBottomNavBar(currentIndex: 0),
     );
   }
 }
