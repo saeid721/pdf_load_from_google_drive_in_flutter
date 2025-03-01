@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pdf_viewer/view/url_pdf_screen.dart';
 import '../controller/pdf_controller.dart';
+import '../data/general_books_list.dart';
 import '../data/recommended_books_list.dart';
 import '../data/trending_books_list.dart';
+import '../general_books_screen/components/general_books_widget.dart';
+import '../general_books_screen/general_books_list_screen.dart';
 import '../global/constants/colors_resources.dart';
 import '../global/widget/custom_bottom_navbar.dart';
 import '../global/widget/global_container.dart';
@@ -14,6 +16,7 @@ import 'recommended_books_screen/components/recommended_books_widget.dart';
 import 'recommended_books_screen/recommended_books_list_screen.dart';
 import 'trending_books_screen/components/trending_books_widget.dart';
 import 'trending_books_screen/trending_books_list_screen.dart';
+import 'url_pdf_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -59,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => TrendingBooksListScreen());
+                        Get.to(() => const TrendingBooksListScreen());
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(right: 10),
@@ -118,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => RecommendedBooksListScreen());
+                        Get.to(() => const RecommendedBooksListScreen());
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(right: 10),
@@ -163,6 +166,71 @@ class HomeScreen extends StatelessWidget {
                             authorName: recommendedBooks.authorName,
                             shortDescription:
                                 recommendedBooks.shortDescription ?? '',
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+                sizedBoxH(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'General Books',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: ColorRes.primaryColor,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => const GeneralBooksListScreen());
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Text(
+                          'See All',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: ColorRes.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                GlobalContainer(
+                  width: Get.width,
+                  color: ColorRes.backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: generalBooks.map((generalBooks) {
+                          return GeneralBooksWidget(
+                            onTap: () {
+                              pdfController.setPdfUrl(generalBooks.pdfUrl);
+                              Get.to(() => UrlPdfScreen(
+                                downloadBooks: DownloadBooks(
+                                  imageUrl: generalBooks.imageUrl,
+                                  pdfUrl: generalBooks.pdfUrl,
+                                  bookName: generalBooks.bookName,
+                                  authorName: generalBooks.authorName,
+                                  shortDescription:
+                                  generalBooks.shortDescription ??
+                                      '',
+                                ),
+                              ));
+                            },
+                            imageUrl: generalBooks.imageUrl,
+                            bookName: generalBooks.bookName,
+                            authorName: generalBooks.authorName,
+                            shortDescription:
+                            generalBooks.shortDescription ?? '',
                           );
                         }).toList(),
                       ),

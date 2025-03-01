@@ -33,3 +33,22 @@ class RecommendedBooks {
     this.shortDescription,
   });
 }
+
+
+class GeneralBooks {
+  final String id;
+  final String imageUrl;
+  final String pdfUrl;
+  final String bookName;
+  final String authorName;
+  String? shortDescription;
+
+  GeneralBooks({
+    required this.id,
+    required this.imageUrl,
+    required this.pdfUrl,
+    required this.bookName,
+    required this.authorName,
+    this.shortDescription,
+  });
+}
