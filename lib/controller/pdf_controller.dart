@@ -4,16 +4,15 @@ import 'bookmark_controller.dart';
 import 'download_controller.dart';
 
 class PdfController extends GetxController {
-  var pdfUrl = '';
+  String pdfUrl = '';
   late BookmarkController bookmarkController;
   late DownloadController downloadController;
   late PdfSearchController searchController;
+  bool isLoading = true;
 
   @override
   void onInit() {
     super.onInit();
-
-    // Initialize if not already done elsewhere
     if (!Get.isRegistered<BookmarkController>()) {
       Get.put(BookmarkController());
     }
@@ -34,5 +33,13 @@ class PdfController extends GetxController {
     bookmarkController.setPdfUrl(url);
     downloadController.setPdfUrl(url);
     searchController.resetSearch();
+  }
+
+  Future<void> fetchData(Function(bool) onLoadingChanged) async {
+    isLoading = true;
+    onLoadingChanged(true);
+    await Future.delayed(const Duration(seconds: 3));
+    isLoading = false;
+    onLoadingChanged(false);
   }
 }

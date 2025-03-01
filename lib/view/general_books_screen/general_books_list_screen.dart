@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdf_viewer/view/url_pdf_screen.dart';
-import '../../controller/pdf_controller.dart';
-import '../../data/recommended_books_list.dart';
-import '../../global/constants/colors_resources.dart';
+import '../../../controller/pdf_controller.dart';
+import '../../../data/recommended_books_list.dart';
+import '../../../global/constants/colors_resources.dart';
+import '../../../global/widget/custom_bottom_navbar.dart';
+import '../../../global/widget/global_container.dart';
+import '../../../global/widget/global_sizedbox.dart';
 import '../../global/custom_app_bar.dart';
-import '../../global/widget/custom_bottom_navbar.dart';
-import '../../global/widget/global_container.dart';
 import '../../global/widget/global_progress_hub.dart';
-import '../../global/widget/global_sizedbox.dart';
 import '../download/components/download_model.dart';
-import '../trending_books_screen/components/trending_books_list_widget.dart';
+import 'components/general_books_list_widget.dart';
 
-class RecommendedBooksListScreen extends StatefulWidget {
-  const RecommendedBooksListScreen({super.key});
+class GeneralBooksListScreen extends StatefulWidget {
+  const GeneralBooksListScreen({super.key});
 
   @override
-  State<RecommendedBooksListScreen> createState() =>
-      _RecommendedBooksListScreenState();
+  State<GeneralBooksListScreen> createState() => _GeneralBooksListScreenState();
 }
 
-class _RecommendedBooksListScreenState
-    extends State<RecommendedBooksListScreen> {
+class _GeneralBooksListScreenState extends State<GeneralBooksListScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PdfController>(builder: (pdfController) {
       return Scaffold(
         appBar: const CustomAppBar(
-          title: 'Recommended Books List',
+          title: 'General Books List',
         ),
         body: ProgressHUD(
           inAsyncCall: pdfController.isLoading,
@@ -45,7 +43,8 @@ class _RecommendedBooksListScreenState
                       width: Get.width,
                       color: ColorRes.backgroundColor,
                       child: GridView.builder(
-                        itemCount: recommendedBooks.length,
+                        itemCount: recommendedBooks
+                            .length, // Should be generalBooks.length
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
@@ -57,8 +56,9 @@ class _RecommendedBooksListScreenState
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         itemBuilder: (ctx, index) {
-                          final book = recommendedBooks[index];
-                          return TrendingBooksListWidget(
+                          final book = recommendedBooks[
+                              index]; // Should use generalBooks[index]
+                          return GeneralBookListWidget(
                             onTap: () {
                               pdfController.setPdfUrl(book.pdfUrl);
                               Get.to(() => UrlPdfScreen(

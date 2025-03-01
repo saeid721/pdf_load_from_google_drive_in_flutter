@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../global/constants/colors_resources.dart';
+import '../../../../global/constants/colors_resources.dart';
 
 class GeneralBooksWidget extends StatelessWidget {
   final VoidCallback onTap;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/pdf_controller.dart';
 import '../../controller/bookmark_controller.dart';
+import '../../controller/download_controller.dart'; // Added for download progress
 import '../../global/constants/colors_resources.dart';
 import '../../global/widget/custom_bottom_navbar.dart';
 import '../download/components/download_model.dart';
@@ -14,7 +15,9 @@ class BookmarksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BookmarkController bookmarkController = Get.find();
+    final PdfController pdfController = Get.find<PdfController>();
+    final BookmarkController bookmarkController = Get.find<BookmarkController>();
+    final DownloadController downloadController = Get.find<DownloadController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +35,7 @@ class BookmarksScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          GetBuilder<BookmarkController>(
+          GetBuilder<DownloadController>(
             builder: (controller) {
               if (controller.isDownloading) {
                 return Padding(
@@ -44,7 +47,7 @@ class BookmarksScreen extends StatelessWidget {
                       child: CircularProgressIndicator(
                         value: controller.downloadProgress,
                         strokeWidth: 2,
-                        color: Colors.white,
+                        color: ColorRes.primaryColor,
                       ),
                     ),
                   ),
@@ -92,9 +95,12 @@ class BookmarksScreen extends StatelessWidget {
           }
 
           return ListView.builder(
-            itemCount: controller.bookmarks.length,
-            itemBuilder: (ctx, i) =>
-                _buildBookmarkItem(controller.bookmarks[i]),
+            itemCount: books.length,
+            itemBuilder: (ctx, i) => _buildBookmarkItem(
+              books[i],
+              pdfController,
+              bookmarkController,
+            ),
           );
         },
       ),
@@ -102,10 +108,11 @@ class BookmarksScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBookmarkItem(BookmarkModel bookmark) {
-    final PdfController pdfController = Get.find();
-    final BookmarkController bookmarkController = Get.find();
-
+  Widget _buildBookmarkItem(
+      BookmarkModel bookmark,
+      PdfController pdfController,
+      BookmarkController bookmarkController,
+      ) {
     return Dismissible(
       key: Key(bookmark.id.toString()),
       background: Container(
@@ -121,7 +128,8 @@ class BookmarksScreen extends StatelessWidget {
           builder: (context) => AlertDialog(
             title: const Text('Delete Bookmark'),
             content: Text(
-                'Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the Bookmark from your device.'),
+              'Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the Bookmark from your device.',
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -144,20 +152,22 @@ class BookmarksScreen extends StatelessWidget {
           'Bookmark Deleted',
           '"${bookmark.note}" has been removed from Bookmark',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey[800],
+          colorText: Colors.white,
         );
       },
       child: BookmarksListWidget(
         onTap: () {
           pdfController.setPdfUrl(bookmark.pdfUrl);
           Get.to(() => UrlPdfScreen(
-                downloadBooks: DownloadBooks(
-                  imageUrl: bookmark.imageUrl,
-                  pdfUrl: bookmark.pdfUrl,
-                  bookName: bookmark.bookName,
-                  authorName: '',
-                  shortDescription: '',
-                ),
-              ));
+            downloadBooks: DownloadBooks(
+              imageUrl: bookmark.imageUrl,
+              pdfUrl: bookmark.pdfUrl,
+              bookName: bookmark.bookName,
+              authorName: '',
+              shortDescription: '',
+            ),
+          ));
         },
         imageUrl: bookmark.imageUrl,
         bookName: bookmark.bookName,

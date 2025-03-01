@@ -1,10 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'dart:math' as math show sin, pi;
 
-
 class ProgressHUD extends StatelessWidget {
-
   final Widget child;
   final String titileText;
   final bool inAsyncCall;
@@ -18,8 +15,9 @@ class ProgressHUD extends StatelessWidget {
     required this.inAsyncCall,
     this.opacity = 0.5,
     this.color = Colors.black,
-    this.valueColor, this.titileText="Please Wait.....",
-  }) ;
+    this.valueColor,
+    this.titileText = "Please Wait.....",
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +61,6 @@ class ProgressHUD extends StatelessWidget {
   }
 }
 
-
 class SpinKitFadingCircle extends StatefulWidget {
   const SpinKitFadingCircle({
     Key? key,
@@ -73,9 +70,10 @@ class SpinKitFadingCircle extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1200),
     this.controller,
   })  : assert(
-  !(itemBuilder is IndexedWidgetBuilder && color is Color) && !(itemBuilder == null && color == null),
-  'You should specify either a itemBuilder or a color',
-  ),
+          !(itemBuilder is IndexedWidgetBuilder && color is Color) &&
+              !(itemBuilder == null && color == null),
+          'You should specify either a itemBuilder or a color',
+        ),
         super(key: key);
 
   final Color? color;
@@ -88,7 +86,8 @@ class SpinKitFadingCircle extends StatefulWidget {
   State<SpinKitFadingCircle> createState() => _SpinKitFadingCircleState();
 }
 
-class _SpinKitFadingCircleState extends State<SpinKitFadingCircle> with SingleTickerProviderStateMixin {
+class _SpinKitFadingCircleState extends State<SpinKitFadingCircle>
+    with SingleTickerProviderStateMixin {
   static const _itemCount = 12;
 
   late AnimationController _controller;
@@ -97,7 +96,9 @@ class _SpinKitFadingCircleState extends State<SpinKitFadingCircle> with SingleTi
   void initState() {
     super.initState();
 
-    _controller = (widget.controller ?? AnimationController(vsync: this, duration: widget.duration))..repeat();
+    _controller = (widget.controller ??
+        AnimationController(vsync: this, duration: widget.duration))
+      ..repeat();
   }
 
   @override
@@ -146,13 +147,12 @@ class _SpinKitFadingCircleState extends State<SpinKitFadingCircle> with SingleTi
   Widget _itemBuilder(int index) => widget.itemBuilder != null
       ? widget.itemBuilder!(context, index)
       : DecoratedBox(
-    decoration: BoxDecoration(
-      color: widget.color,
-      shape: BoxShape.circle,
-    ),
-  );
+          decoration: BoxDecoration(
+            color: widget.color,
+            shape: BoxShape.circle,
+          ),
+        );
 }
-
 
 class DelayTween extends Tween<double> {
   DelayTween({
