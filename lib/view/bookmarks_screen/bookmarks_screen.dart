@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import '../../controller/pdf_controller.dart';
 import '../../controller/bookmark_controller.dart';
 import '../../global/constants/colors_resources.dart';
-import '../download/download_screen.dart';
-import '../home_screen.dart';
+import '../../global/widget/custom_bottom_navbar.dart';
+import '../download/components/download_model.dart';
 import '../url_pdf_screen.dart';
 import 'components/bookmark_model.dart';
 import 'components/bookmarks_list_widget.dart';
@@ -23,7 +23,8 @@ class BookmarksScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: ColorRes.primaryColor),
         centerTitle: true,
-        title: const Text('My Bookmarks',
+        title: const Text(
+          'My Bookmarks',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
@@ -31,87 +32,72 @@ class BookmarksScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          Obx(() {
-            if (bookmarkController.isDownloading.value) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Center(
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      value: bookmarkController.downloadProgress.value,
-                      strokeWidth: 2,
-                      color: Colors.white,
+          GetBuilder<BookmarkController>(
+            builder: (controller) {
+              if (controller.isDownloading) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        value: controller.downloadProgress,
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-              );
-            }
-            return const SizedBox.shrink();
-          }),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
         ],
       ),
-      body: Obx(() {
-        final books = bookmarkController.bookmarks;
+      body: GetBuilder<BookmarkController>(
+        builder: (controller) {
+          final books = controller.bookmarks;
 
-        if (books.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.bookmark,
-                  size: 80,
-                  color: Colors.grey[400],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'No bookmarks yet',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
+          if (books.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.bookmark,
+                    size: 80,
+                    color: Colors.grey[400],
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Your bookmarks will appear here',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[500],
+                  const SizedBox(height: 16),
+                  Text(
+                    'No bookmarks yet',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }
-
-        return ListView.builder(
-          itemCount: bookmarkController.bookmarks.length,
-          itemBuilder: (ctx, i) =>
-              _buildBookmarkItem(bookmarkController.bookmarks[i]),
-        );
-      }),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        onTap: (index) {
-          if (index == 0) {
-            Get.to(() => const HomeScreen());
-          } else if (index == 1) {
-            Get.to(() => const DownloadScreen());
-          } else if (index == 2) {
-            Get.to(() => const BookmarksScreen());
+                  const SizedBox(height: 8),
+                  Text(
+                    'Your bookmarks will appear here',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
+
+          return ListView.builder(
+            itemCount: controller.bookmarks.length,
+            itemBuilder: (ctx, i) => _buildBookmarkItem(controller.bookmarks[i]),
+          );
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.download), label: 'Download'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark), label: 'Bookmarks'),
-        ],
       ),
+      bottomNavigationBar: const CustomBottomNavBar(currentIndex: 2),
     );
   }
 
@@ -133,7 +119,8 @@ class BookmarksScreen extends StatelessWidget {
           context: Get.context!,
           builder: (context) => AlertDialog(
             title: const Text('Delete Bookmark'),
-            content: Text('Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the Bookmark from your device.'),
+            content: Text(
+                'Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the Bookmark from your device.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
@@ -141,7 +128,10 @@ class BookmarksScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Delete', style: TextStyle(color: Colors.red)),
+                child: const Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.red),
+                ),
               ),
             ],
           ),
@@ -158,7 +148,15 @@ class BookmarksScreen extends StatelessWidget {
       child: BookmarksListWidget(
         onTap: () {
           pdfController.setPdfUrl(bookmark.pdfUrl);
-          //Get.to(() => UrlPdfScreen(downloadBooks: bookmark));
+          Get.to(() => UrlPdfScreen(
+            downloadBooks: DownloadBooks(
+              imageUrl: "",
+              pdfUrl: bookmark.pdfUrl,
+              bookName: bookmark.bookName,
+              authorName: "",
+              shortDescription: "",
+            ),
+          ));
         },
         imageUrl: '',
         bookName: bookmark.bookName,

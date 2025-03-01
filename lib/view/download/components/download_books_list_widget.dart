@@ -23,7 +23,7 @@ class DownloadBookListWidget extends StatelessWidget {
       onTap: onTap,
       child: Card(
         color: ColorRes.white,
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         elevation: 1,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

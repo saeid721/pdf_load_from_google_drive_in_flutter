@@ -7,10 +7,10 @@ import 'package:path/path.dart';
 import '../view/download/components/download_model.dart';
 
 class DownloadController extends GetxController {
-  var downloadBooks = <DownloadBooks>[].obs;
-  var pdfUrl = ''.obs;
-  var isDownloading = false.obs;
-  var downloadProgress = 0.0.obs;
+  List<DownloadBooks> downloadBooks = [];
+  String pdfUrl = '';
+  bool isDownloading = false;
+  double downloadProgress = 0.0;
   late Database database;
 
   @override
@@ -19,7 +19,10 @@ class DownloadController extends GetxController {
     _initDatabase();
   }
 
-  void setPdfUrl(String url) => pdfUrl.value = url;
+  void setPdfUrl(String url) {
+    pdfUrl = url;
+    update(); // Notify UI if needed
+  }
 
   Future<void> _initDatabase() async {
     database = await openDatabase(
@@ -38,14 +41,15 @@ class DownloadController extends GetxController {
       },
       version: 1,
     );
-    loadDownloadBooks();
+    await loadDownloadBooks();
   }
 
   Future<void> loadDownloadBooks() async {
     final List<Map<String, dynamic>> maps = await database.query('downloadBooks');
-    downloadBooks.value = List.generate(maps.length, (i) {
+    downloadBooks = List.generate(maps.length, (i) {
       return DownloadBooks.fromMap(maps[i]);
     });
+    update(); // Notify UI of loaded books
   }
 
   Future<void> addDownloadBook(DownloadBooks book) async {
@@ -58,6 +62,7 @@ class DownloadController extends GetxController {
     // Check if the book is already in the list before adding
     if (!downloadBooks.any((b) => b.pdfUrl == book.pdfUrl)) {
       downloadBooks.add(book);
+      update(); // Notify UI of new book
     }
   }
 
@@ -81,6 +86,7 @@ class DownloadController extends GetxController {
     }
 
     downloadBooks.removeWhere((b) => b.pdfUrl == book.pdfUrl);
+    update(); // Notify UI of removal
   }
 
   Future<bool> checkIfFileExists(String filePath) async {
@@ -90,7 +96,7 @@ class DownloadController extends GetxController {
 
   Future<void> downloadAndSavePdf(DownloadBooks book) async {
     try {
-      if (isDownloading.value) {
+      if (isDownloading) {
         Get.snackbar('Info', 'Another download is in progress');
         return;
       }
@@ -106,8 +112,9 @@ class DownloadController extends GetxController {
         return;
       }
 
-      isDownloading.value = true;
-      downloadProgress.value = 0.0;
+      isDownloading = true;
+      downloadProgress = 0.0;
+      update(); // Notify UI of download start
 
       // Make HTTP request to download the PDF
       final response = await http.get(Uri.parse(book.pdfUrl));
@@ -120,16 +127,20 @@ class DownloadController extends GetxController {
         // Add to download list
         await addDownloadBook(book);
 
-        isDownloading.value = false;
-        downloadProgress.value = 1.0;
+        isDownloading = false;
+        downloadProgress = 1.0;
+        update(); // Notify UI of download completion
         Get.snackbar('Success', '${book.bookName} downloaded successfully');
       } else {
-        isDownloading.value = false;
+        isDownloading = false;
+        downloadProgress = 0.0;
+        update(); // Notify UI of failure
         throw Exception('Server error: ${response.statusCode}');
       }
     } catch (e) {
-      isDownloading.value = false;
-      downloadProgress.value = 0.0;
+      isDownloading = false;
+      downloadProgress = 0.0;
+      update(); // Notify UI of error
       Get.snackbar('Error', 'Download failed: $e');
     }
   }

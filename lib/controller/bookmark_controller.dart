@@ -4,10 +4,11 @@ import 'package:path/path.dart';
 import '../view/bookmarks_screen/components/bookmark_model.dart';
 
 class BookmarkController extends GetxController {
-  var bookmarks = <BookmarkModel>[].obs;
-  var isDownloading = false.obs;
-  var downloadProgress = 0.0.obs;
-  var pdfUrl = ''.obs;
+  List<BookmarkModel> bookmarks = [];
+  bool isDownloading = false;
+  double downloadProgress = 0.0;
+  String pdfUrl = '';
+  String imageUrl = '';
 
   late Database database;
 
@@ -18,7 +19,7 @@ class BookmarkController extends GetxController {
   }
 
   void setPdfUrl(String url) {
-    pdfUrl.value = url;
+    pdfUrl = url;
     loadBookmarks();
   }
 
@@ -40,7 +41,7 @@ class BookmarkController extends GetxController {
       },
       version: 1,
     );
-    loadBookmarks();
+    await loadBookmarks();
   }
 
   // Load bookmarks from the database
@@ -48,12 +49,13 @@ class BookmarkController extends GetxController {
     final List<Map<String, dynamic>> maps = await database.query(
       'bookmarks',
       where: 'pdfUrl = ?',
-      whereArgs: [pdfUrl.value],
+      whereArgs: [pdfUrl],
       orderBy: 'pageNumber ASC',
     );
-    bookmarks.value = List.generate(maps.length, (i) {
+    bookmarks = List.generate(maps.length, (i) {
       return BookmarkModel.fromMap(maps[i]);
     });
+    update(); // Notify UI of loaded bookmarks
   }
 
   // Add a new bookmark
@@ -63,7 +65,8 @@ class BookmarkController extends GetxController {
     required String note,
   }) async {
     final bookmark = BookmarkModel(
-      pdfUrl: pdfUrl.value,
+      imageUrl: imageUrl,
+      pdfUrl: pdfUrl,
       bookName: bookName,
       pageNumber: pageNumber,
       note: note,
@@ -78,12 +81,14 @@ class BookmarkController extends GetxController {
 
     bookmarks.add(BookmarkModel(
       id: id,
+      imageUrl: bookmark.imageUrl,
       pdfUrl: bookmark.pdfUrl,
       bookName: bookmark.bookName,
       pageNumber: bookmark.pageNumber,
       note: bookmark.note,
       dateAdded: bookmark.dateAdded,
     ));
+    update(); // Notify UI of added bookmark
 
     Get.snackbar('Success', 'Bookmark added for page $pageNumber');
   }
@@ -96,6 +101,8 @@ class BookmarkController extends GetxController {
       whereArgs: [bookmark.id],
     );
     bookmarks.removeWhere((b) => b.id == bookmark.id);
+    update(); // Notify UI of removed bookmark
+
     Get.snackbar('Success', 'Bookmark removed');
   }
 

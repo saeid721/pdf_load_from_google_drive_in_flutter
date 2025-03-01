@@ -1,5 +1,6 @@
 class BookmarkModel {
   final int? id;
+  final String imageUrl;
   final String pdfUrl;
   final String bookName;
   final int pageNumber;
@@ -8,6 +9,7 @@ class BookmarkModel {
 
   BookmarkModel({
     this.id,
+    required this.imageUrl,
     required this.pdfUrl,
     required this.bookName,
     required this.pageNumber,
@@ -15,10 +17,10 @@ class BookmarkModel {
     required this.dateAdded,
   });
 
-  // Convert a BookmarkModel into a Map for database storage
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'imageUrl': imageUrl,
       'pdfUrl': pdfUrl,
       'bookName': bookName,
       'pageNumber': pageNumber,
@@ -27,15 +29,16 @@ class BookmarkModel {
     };
   }
 
-  // Create a BookmarkModel from a Map retrieved from the database
   factory BookmarkModel.fromMap(Map<String, dynamic> map) {
     return BookmarkModel(
-      id: map['id'],
-      pdfUrl: map['pdfUrl'],
-      bookName: map['bookName'],
-      pageNumber: map['pageNumber'],
-      note: map['note'],
-      dateAdded: DateTime.parse(map['dateAdded']),
+      id: map['id'] as int?,
+      imageUrl: map['imageUrl'],
+      pdfUrl: map['pdfUrl']?.toString() ?? '',
+      bookName: map['bookName']?.toString() ?? 'Unknown Book',
+      pageNumber: (map['pageNumber'] as int?) ?? 0,
+      note: map['note']?.toString() ?? 'No note',
+      dateAdded: DateTime.parse(map['dateAdded']?.toString() ??
+          DateTime.now().toIso8601String()),
     );
   }
 }

@@ -9,6 +9,7 @@ import '../../global/widget/global_sizedbox.dart';
 import '../bookmarks_screen/bookmarks_screen.dart';
 import '../download/components/download_model.dart';
 import '../download/download_screen.dart';
+import '../home_screen.dart';
 import 'components/trending_books_list_widget.dart';
 
 class TrendingBooksListScreen extends StatelessWidget {
@@ -91,7 +92,7 @@ class TrendingBooksListScreen extends StatelessWidget {
         currentIndex: 0,
         onTap: (index) {
           if (index == 0) {
-            Get.to(() => const TrendingBooksListScreen());
+            Get.to(() => const HomeScreen());
           } else if (index == 1) {
             Get.to(() => const DownloadScreen());
           } else if (index == 2) {
