@@ -4,7 +4,7 @@ import 'bookmark_controller.dart';
 import 'download_controller.dart';
 
 class PdfController extends GetxController {
-  var pdfUrl = ''.obs;
+  var pdfUrl = '';
   late BookmarkController bookmarkController;
   late DownloadController downloadController;
   late PdfSearchController searchController;
@@ -30,7 +30,7 @@ class PdfController extends GetxController {
   }
 
   void setPdfUrl(String url) {
-    pdfUrl.value = url;
+    pdfUrl = url;
     bookmarkController.setPdfUrl(url);
     downloadController.setPdfUrl(url);
     searchController.resetSearch();
