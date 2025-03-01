@@ -25,7 +25,7 @@ class GeneralBooksListScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: ColorRes.primaryColor),
         centerTitle: true,
         title: const Text(
-          'Recommended Books List',
+          'General Books List',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
