@@ -13,7 +13,6 @@ class DownloadController extends GetxController {
   double downloadProgress = 0.0;
   late Database database;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -47,7 +46,7 @@ class DownloadController extends GetxController {
 
   Future<void> loadDownloadBooks() async {
     final List<Map<String, dynamic>> maps =
-        await database.query('downloadBooks');
+    await database.query('downloadBooks');
     downloadBooks = List.generate(maps.length, (i) {
       return DownloadBooks.fromMap(maps[i]);
     });

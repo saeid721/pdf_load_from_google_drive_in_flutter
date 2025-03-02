@@ -61,7 +61,7 @@ class DownloadScreen extends StatelessWidget {
                     width: size(context).width,
                     color: ColorRes.backgroundColor,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: ListView.builder(
                         itemCount: downloadController.downloadBooks.length,
                         itemBuilder: (ctx, i) => _buildDownloadBookItem(

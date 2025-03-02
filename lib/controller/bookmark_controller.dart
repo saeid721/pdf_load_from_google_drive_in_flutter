@@ -5,8 +5,8 @@ import '../view/bookmarks_screen/components/bookmark_model.dart';
 
 class BookmarkController extends GetxController {
   List<BookmarkModel> bookmarks = [];
-  bool isDownloading = false;
-  double downloadProgress = 0.0;
+  bool isDownloading = false; // Consider removing if not used
+  double downloadProgress = 0.0; // Consider removing if not used
   String pdfUrl = '';
   String imageUrl = '';
 
