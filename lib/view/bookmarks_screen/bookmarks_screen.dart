@@ -16,8 +16,10 @@ class BookmarksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfController pdfController = Get.find<PdfController>();
-    final BookmarkController bookmarkController = Get.find<BookmarkController>();
-    final DownloadController downloadController = Get.find<DownloadController>();
+    final BookmarkController bookmarkController =
+        Get.find<BookmarkController>();
+    final DownloadController downloadController =
+        Get.find<DownloadController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -109,17 +111,17 @@ class BookmarksScreen extends StatelessWidget {
   }
 
   Widget _buildBookmarkItem(
-      BookmarkModel bookmark,
-      PdfController pdfController,
-      BookmarkController bookmarkController,
-      ) {
+    BookmarkModel bookmark,
+    PdfController pdfController,
+    BookmarkController bookmarkController,
+  ) {
     return Dismissible(
       key: Key(bookmark.id.toString()),
       background: Container(
-        color: Colors.red,
+        color: ColorRes.red,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 10),
-        child: const Icon(Icons.delete, color: Colors.white),
+        child: const Icon(Icons.delete, color: ColorRes.white),
       ),
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction) async {
@@ -135,11 +137,11 @@ class BookmarksScreen extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(false),
                 child: const Text('Cancel'),
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 child: const Text(
                   'Delete',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: ColorRes.red),
                 ),
               ),
             ],
@@ -160,14 +162,14 @@ class BookmarksScreen extends StatelessWidget {
         onTap: () {
           pdfController.setPdfUrl(bookmark.pdfUrl);
           Get.to(() => UrlPdfScreen(
-            downloadBooks: DownloadBooks(
-              imageUrl: bookmark.imageUrl,
-              pdfUrl: bookmark.pdfUrl,
-              bookName: bookmark.bookName,
-              authorName: '',
-              shortDescription: '',
-            ),
-          ));
+                downloadBooks: DownloadBooks(
+                  imageUrl: bookmark.imageUrl,
+                  pdfUrl: bookmark.pdfUrl,
+                  bookName: bookmark.bookName,
+                  authorName: '',
+                  shortDescription: '',
+                ),
+              ));
         },
         imageUrl: bookmark.imageUrl,
         bookName: bookmark.bookName,

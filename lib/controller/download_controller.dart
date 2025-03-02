@@ -13,6 +13,7 @@ class DownloadController extends GetxController {
   double downloadProgress = 0.0;
   late Database database;
 
+
   @override
   void onInit() {
     super.onInit();
@@ -21,7 +22,7 @@ class DownloadController extends GetxController {
 
   void setPdfUrl(String url) {
     pdfUrl = url;
-    update(); // Notify UI if needed
+    update(); // Optional: Remove if UI doesn't need immediate update
   }
 
   Future<void> _initDatabase() async {
@@ -45,7 +46,8 @@ class DownloadController extends GetxController {
   }
 
   Future<void> loadDownloadBooks() async {
-    final List<Map<String, dynamic>> maps = await database.query('downloadBooks');
+    final List<Map<String, dynamic>> maps =
+        await database.query('downloadBooks');
     downloadBooks = List.generate(maps.length, (i) {
       return DownloadBooks.fromMap(maps[i]);
     });
@@ -59,7 +61,6 @@ class DownloadController extends GetxController {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
-    // Check if the book is already in the list before adding
     if (!downloadBooks.any((b) => b.pdfUrl == book.pdfUrl)) {
       downloadBooks.add(book);
       update(); // Notify UI of new book
@@ -73,7 +74,6 @@ class DownloadController extends GetxController {
       whereArgs: [book.pdfUrl],
     );
 
-    // Also remove the PDF file from storage
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/${book.bookName}.pdf';
@@ -101,11 +101,9 @@ class DownloadController extends GetxController {
         return;
       }
 
-      // Get the directory to save the file
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/${book.bookName}.pdf';
 
-      // Check if file already exists
       if (await checkIfFileExists(filePath)) {
         Get.snackbar('Info', '${book.bookName} is already downloaded');
         await addDownloadBook(book);
@@ -116,15 +114,12 @@ class DownloadController extends GetxController {
       downloadProgress = 0.0;
       update(); // Notify UI of download start
 
-      // Make HTTP request to download the PDF
       final response = await http.get(Uri.parse(book.pdfUrl));
 
       if (response.statusCode == 200) {
-        // Save the file
         final file = File(filePath);
         await file.writeAsBytes(response.bodyBytes);
 
-        // Add to download list
         await addDownloadBook(book);
 
         isDownloading = false;

@@ -22,7 +22,7 @@ class UrlPdfScreen extends StatelessWidget {
     final searchController = Get.find<PdfSearchController>();
     final pdfViewerController = PdfViewerController();
 
-    pdfController.setPdfUrl(downloadBooks.pdfUrl);
+    //pdfController.setPdfUrl(downloadBooks.pdfUrl);
 
     return Scaffold(
       appBar: AppBar(

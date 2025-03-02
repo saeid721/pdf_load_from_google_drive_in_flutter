@@ -3,7 +3,11 @@ import 'package:get/get.dart';
 import '../../controller/download_controller.dart';
 import '../../controller/pdf_controller.dart';
 import '../../global/constants/colors_resources.dart';
+import '../../global/custom_app_bar.dart';
 import '../../global/widget/custom_bottom_navbar.dart';
+import '../../global/widget/global_container.dart';
+import '../../global/widget/global_progress_hub.dart';
+import '../../global/widget/global_sizedbox.dart';
 import '../url_pdf_screen.dart';
 import 'components/download_books_list_widget.dart';
 import 'components/download_model.dart';
@@ -13,93 +17,64 @@ class DownloadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final downloadController = Get.find<DownloadController>();
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        shadowColor: Colors.grey,
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: ColorRes.primaryColor),
-        centerTitle: true,
-        title: const Text(
-          'Downloaded Books',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: ColorRes.primaryColor,
+    return GetBuilder<DownloadController>(
+      builder: (downloadController) {
+        return Scaffold(
+          appBar: const CustomAppBar(
+            title: 'Downloaded Books',
           ),
-        ),
-        actions: [
-          GetBuilder<DownloadController>(
-            builder: (controller) {
-              if (controller.isDownloading) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Center(
-                    child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        value: controller.downloadProgress,
-                        strokeWidth: 2,
-                        color: ColorRes.textColor,
+          body: downloadController.downloadBooks.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.download_done_rounded,
+                        size: 80,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'No books downloaded yet',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Your downloaded books will appear here',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[500],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : ProgressHUD(
+                  inAsyncCall: downloadController
+                      .isDownloading, // Fixed to isDownloading
+                  child: GlobalContainer(
+                    height: size(context).height,
+                    width: size(context).width,
+                    color: ColorRes.backgroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: ListView.builder(
+                        itemCount: downloadController.downloadBooks.length,
+                        itemBuilder: (ctx, i) => _buildDownloadBookItem(
+                          downloadController,
+                          downloadController.downloadBooks[i],
+                        ),
                       ),
                     ),
                   ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
-      ),
-      body: GetBuilder<DownloadController>(
-        builder: (controller) {
-          final books = controller.downloadBooks;
-
-          if (books.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.download_done_rounded,
-                    size: 80,
-                    color: Colors.grey[400],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No books downloaded yet',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Your downloaded books will appear here',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[500],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: books.length,
-            itemBuilder: (ctx, i) => _buildDownloadBookItem(
-              controller,
-              books[i],
-            ),
-          );
-        },
-      ),
-      bottomNavigationBar: const CustomBottomNavBar(currentIndex: 1),
+                ),
+          bottomNavigationBar: const CustomBottomNavBar(currentIndex: 1),
+        );
+      },
     );
   }
 
@@ -108,10 +83,10 @@ class DownloadScreen extends StatelessWidget {
     return Dismissible(
       key: Key(book.pdfUrl),
       background: Container(
-        color: Colors.red,
+        color: ColorRes.red,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 10),
-        child: const Icon(Icons.delete, color: Colors.white),
+        child: const Icon(Icons.delete, color: ColorRes.white),
       ),
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction) async {
@@ -126,12 +101,9 @@ class DownloadScreen extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(false),
                 child: const Text('Cancel'),
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text(
-                  'Delete',
-                  style: TextStyle(color: Colors.red),
-                ),
+                child: const Text('Delete', style: TextStyle(color: ColorRes.red),),
               ),
             ],
           ),
@@ -147,7 +119,8 @@ class DownloadScreen extends StatelessWidget {
       },
       child: DownloadBookListWidget(
         onTap: () {
-          Get.find<PdfController>().setPdfUrl(book.pdfUrl);
+          final pdfController = Get.find<PdfController>();
+          pdfController.setPdfUrl(book.pdfUrl);
           Get.to(() => UrlPdfScreen(downloadBooks: book));
         },
         imageUrl: book.imageUrl,

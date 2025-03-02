@@ -7,6 +7,7 @@ import 'view/splash_screen/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(PdfController());
+
   runApp(const MyApp());
 }
 
