@@ -6,7 +6,6 @@ import '../../global/constants/colors_resources.dart';
 import '../../global/custom_app_bar.dart';
 import '../../global/widget/custom_bottom_navbar.dart';
 import '../../global/widget/global_container.dart';
-import '../../global/widget/global_progress_hub.dart';
 import '../../global/widget/global_sizedbox.dart';
 import '../url_pdf_screen.dart';
 import 'components/download_books_list_widget.dart';
@@ -53,21 +52,17 @@ class DownloadScreen extends StatelessWidget {
                     ],
                   ),
                 )
-              : ProgressHUD(
-                  inAsyncCall: downloadController
-                      .isDownloading, // Fixed to isDownloading
-                  child: GlobalContainer(
-                    height: size(context).height,
-                    width: size(context).width,
-                    color: ColorRes.backgroundColor,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: ListView.builder(
-                        itemCount: downloadController.downloadBooks.length,
-                        itemBuilder: (ctx, i) => _buildDownloadBookItem(
-                          downloadController,
-                          downloadController.downloadBooks[i],
-                        ),
+              : GlobalContainer(
+                  height: size(context).height,
+                  width: size(context).width,
+                  color: ColorRes.backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: ListView.builder(
+                      itemCount: downloadController.downloadBooks.length,
+                      itemBuilder: (ctx, i) => _buildDownloadBookItem(
+                        downloadController,
+                        downloadController.downloadBooks[i],
                       ),
                     ),
                   ),
@@ -102,9 +97,9 @@ class DownloadScreen extends StatelessWidget {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Delete', style: TextStyle(color: ColorRes.red),),
-              ),
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('Delete',
+                      style: TextStyle(color: ColorRes.red))),
             ],
           ),
         );
@@ -115,6 +110,8 @@ class DownloadScreen extends StatelessWidget {
           'Book Deleted',
           '"${book.bookName}" has been removed from downloads',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey[800],
+          colorText: Colors.white,
         );
       },
       child: DownloadBookListWidget(

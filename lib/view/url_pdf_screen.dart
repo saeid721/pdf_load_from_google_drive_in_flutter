@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import '../controller/pdf_controller.dart';
 import '../controller/bookmark_controller.dart';
 import '../controller/download_controller.dart';
 import '../controller/search_controller.dart';
@@ -16,13 +15,10 @@ class UrlPdfScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pdfController = Get.find<PdfController>();
     final bookmarkController = Get.find<BookmarkController>();
     final downloadController = Get.find<DownloadController>();
     final searchController = Get.find<PdfSearchController>();
     final pdfViewerController = PdfViewerController();
-
-    //pdfController.setPdfUrl(downloadBooks.pdfUrl);
 
     return Scaffold(
       appBar: AppBar(
