@@ -16,8 +16,7 @@ class DownloadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DownloadController>(
-      builder: (downloadController) {
+    return GetBuilder<DownloadController>(builder: (downloadController) {
         return Scaffold(
           appBar: const CustomAppBar(
             title: 'Downloaded Books',
@@ -128,3 +127,6 @@ class DownloadScreen extends StatelessWidget {
     );
   }
 }
+
+
+

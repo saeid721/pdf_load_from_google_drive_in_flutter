@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/pdf_controller.dart';
 import '../../controller/bookmark_controller.dart';
-import '../../controller/download_controller.dart';
+import '../../controller/download_controller.dart'; // Added for download progress
 import '../../global/constants/colors_resources.dart';
 import '../../global/custom_app_bar.dart';
 import '../../global/widget/custom_bottom_navbar.dart';
@@ -21,63 +21,61 @@ class BookmarksScreen extends StatelessWidget {
     final PdfController pdfController = Get.find<PdfController>();
 
     return GetBuilder<DownloadController>(builder: (downloadController) {
-      return GetBuilder<BookmarkController>(
-        builder: (bookmarkController) {
-          return Scaffold(
-            appBar: const CustomAppBar(
-              title: 'My Bookmarks',
-            ),
-            body: bookmarkController.bookmarks.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.bookmark,
-                          size: 80,
-                          color: Colors.grey[400],
+      return GetBuilder<BookmarkController>(builder: (bookmarkController) {
+        return Scaffold(
+          appBar: const CustomAppBar(
+            title: 'My Bookmarks',
+          ),
+          body: bookmarkController.bookmarks.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.bookmark,
+                        size: 80,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'No bookmarks yet',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
                         ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No bookmarks yet',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Your bookmarks will appear here',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[500],
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Your bookmarks will appear here',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : GlobalContainer(
-                    height: size(context).height,
-                    width: size(context).width,
-                    color: ColorRes.backgroundColor,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: ListView.builder(
-                        itemCount: bookmarkController.bookmarks.length,
-                        itemBuilder: (ctx, i) => _buildBookmarkItem(
-                          bookmarkController,
-                          bookmarkController.bookmarks[i],
-                          pdfController,
-                          downloadController,
-                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : GlobalContainer(
+                  height: size(context).height,
+                  width: size(context).width,
+                  color: ColorRes.backgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: ListView.builder(
+                      itemCount: bookmarkController.bookmarks.length,
+                      itemBuilder: (ctx, i) => _buildBookmarkItem(
+                        bookmarkController,
+                        bookmarkController.bookmarks[i],
+                        pdfController,
+                        downloadController,
                       ),
                     ),
                   ),
-            bottomNavigationBar: const CustomBottomNavBar(currentIndex: 1),
-          );
-        },
-      );
+                ),
+          bottomNavigationBar: const CustomBottomNavBar(currentIndex: 2),
+        );
+      });
     });
   }
 
@@ -87,9 +85,6 @@ class BookmarksScreen extends StatelessWidget {
     PdfController pdfController,
     DownloadController downloadController,
   ) {
-    final downloadedBook =
-        downloadController.getDownloadedBook(bookmark.pdfUrl);
-
     return Dismissible(
       key: Key(bookmark.id.toString()),
       background: Container(
@@ -105,7 +100,7 @@ class BookmarksScreen extends StatelessWidget {
           builder: (context) => AlertDialog(
             title: const Text('Delete Bookmark'),
             content: Text(
-              'Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the bookmark from your device.',
+              'Are you sure you want to delete "${bookmark.note}"?\n\nThis will remove the Bookmark from your device.',
             ),
             actions: [
               TextButton(
@@ -114,8 +109,10 @@ class BookmarksScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child:
-                    const Text('Delete', style: TextStyle(color: ColorRes.red)),
+                child: const Text(
+                  'Delete',
+                  style: TextStyle(color: ColorRes.red),
+                ),
               ),
             ],
           ),
@@ -125,7 +122,7 @@ class BookmarksScreen extends StatelessWidget {
         bookmarkController.removeBookmark(bookmark);
         Get.snackbar(
           'Bookmark Deleted',
-          '"${bookmark.note}" has been removed from bookmarks',
+          '"${bookmark.note}" has been removed from Bookmark',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.grey[800],
           colorText: Colors.white,
@@ -135,15 +132,13 @@ class BookmarksScreen extends StatelessWidget {
         onTap: () {
           pdfController.setPdfUrl(bookmark.pdfUrl);
           Get.to(() => UrlPdfScreen(
-                downloadBooks: downloadedBook ??
-                    DownloadBooks(
-                      imageUrl: bookmark.imageUrl,
-                      pdfUrl: bookmark.pdfUrl,
-                      bookName: bookmark.bookName,
-                      authorName: '', // Fallback if not in DownloadController
-                      shortDescription:
-                          '', // Fallback if not in DownloadController
-                    ),
+                downloadBooks: DownloadBooks(
+                  imageUrl: bookmark.imageUrl,
+                  pdfUrl: bookmark.pdfUrl,
+                  bookName: bookmark.bookName,
+                  authorName: '',
+                  shortDescription: '',
+                ),
               ));
         },
         imageUrl: bookmark.imageUrl,
