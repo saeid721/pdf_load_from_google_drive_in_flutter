@@ -4,30 +4,29 @@ import '../../../global/constants/colors_resources.dart';
 
 class RecommendedBooksWidget extends StatelessWidget {
   final VoidCallback onTap;
-  final String bookName; // Changed to optional
-  final String authorName; // Changed to optional
-  final String shortDescription; // Changed to optional
-  final Color bookNameColor; // Dynamic title color
-  final Color authorNameColor; // Dynamic author color
-  final Color shortDescriptionColor; // Dynamic description color
-  final Color borderColor; // Dynamic border color
+  final String bookName;
+  final String authorName;
+  final String shortDescription;
+  final Color bookNameColor;
+  final Color authorNameColor;
+  final Color shortDescriptionColor;
+  final Color borderColor;
   final Color backgroundColor;
-  final String? imageUrl; // Optional image URL
-  final double imageSize; // Image size
+  final String? imageUrl;
+  final double imageSize;
 
   const RecommendedBooksWidget({
     required this.onTap,
-    required this.bookName, // Changed to optional
-    required this.authorName, // Changed to optional
-    required this.shortDescription, // Changed to optional
-    this.bookNameColor = ColorRes.primaryColor, // Default title color
-    this.authorNameColor = ColorRes.textColor, // Default author color
-    this.shortDescriptionColor =
-        ColorRes.textColor, // Default description color
-    this.borderColor = ColorRes.borderColor, // Default border color
-    this.backgroundColor = ColorRes.white, // Default background color
-    this.imageUrl, // Image URL
-    this.imageSize = 100.0, // Default image size
+    required this.bookName,
+    required this.authorName,
+    required this.shortDescription,
+    this.bookNameColor = ColorRes.primaryColor,
+    this.authorNameColor = ColorRes.textColor,
+    this.shortDescriptionColor = ColorRes.textColor,
+    this.borderColor = ColorRes.borderColor,
+    this.backgroundColor = ColorRes.white,
+    this.imageUrl,
+    this.imageSize = 100.0,
     super.key,
   });
 
@@ -62,9 +61,9 @@ class RecommendedBooksWidget extends StatelessWidget {
                     ),
                     image: imageUrl != null
                         ? DecorationImage(
-                            image: NetworkImage(imageUrl!),
-                            fit: BoxFit.cover,
-                          )
+                      image: NetworkImage(imageUrl!),
+                      fit: BoxFit.cover,
+                    )
                         : null,
                   ),
                 ),
