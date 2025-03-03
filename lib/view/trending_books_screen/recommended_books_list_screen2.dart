@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdf_viewer/view/url_pdf_screen.dart';
 import '../../controller/pdf_controller.dart';
-import '../../data/recommended_books_list.dart';
+import '../../data/trending_books_list.dart';
 import '../../global/constants/colors_resources.dart';
 import '../../global/custom_app_bar.dart';
 import '../../global/widget/custom_bottom_navbar.dart';
@@ -10,7 +10,7 @@ import '../../global/widget/global_container.dart';
 import '../../global/widget/global_progress_hub.dart';
 import '../../global/widget/global_sizedbox.dart';
 import '../download/components/download_model.dart';
-import 'components/recommended_books_list_widget.dart';
+import 'components/trending_books_list_widget.dart';
 
 class RecommendedBooksListScreen extends StatefulWidget {
   const RecommendedBooksListScreen({super.key});
@@ -47,7 +47,7 @@ class _RecommendedBooksListScreenState extends State<RecommendedBooksListScreen>
       return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: const CustomAppBar(
-          title: 'Recommended Books',
+          title: 'Trending Books List',
         ),
         body: ProgressHUD(
           inAsyncCall: pdfController.isLoading,
@@ -64,7 +64,7 @@ class _RecommendedBooksListScreenState extends State<RecommendedBooksListScreen>
                     Expanded(
                       child: pdfController.isLoading
                           ? const Center(child: CircularProgressIndicator())
-                          : recommendedBooks.isEmpty
+                          : trendingBooks.isEmpty
                               ? Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +89,7 @@ class _RecommendedBooksListScreenState extends State<RecommendedBooksListScreen>
                                 )
                               : GridView.builder(
                                   controller: _scrollController,
-                                  itemCount: recommendedBooks.length,
+                                  itemCount: trendingBooks.length,
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 8, 10),
                                   physics: const BouncingScrollPhysics(),
@@ -101,7 +101,7 @@ class _RecommendedBooksListScreenState extends State<RecommendedBooksListScreen>
                                     mainAxisExtent: 280,
                                   ),
                                   itemBuilder: (ctx, index) {
-                                    final book = recommendedBooks[index];
+                                    final book = trendingBooks[index];
 
                                     // Staggered animation for grid items
                                     return AnimatedBuilder(
@@ -136,7 +136,7 @@ class _RecommendedBooksListScreenState extends State<RecommendedBooksListScreen>
                                           ),
                                         );
                                       },
-                                      child: RecommendedBookListWidget(
+                                      child: TrendingBooksListWidget(
                                         onTap: () {
                                           pdfController.setPdfUrl(book.pdfUrl);
                                           Get.to(
@@ -157,7 +157,6 @@ class _RecommendedBooksListScreenState extends State<RecommendedBooksListScreen>
                                         },
                                         imageUrl: book.imageUrl,
                                         bookName: book.bookName,
-                                        authorName: book.authorName,
                                       ),
                                     );
                                   },

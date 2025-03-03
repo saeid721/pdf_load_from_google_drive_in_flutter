@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../global/constants/colors_resources.dart';
 
 class RecommendedBookListWidget extends StatelessWidget {
@@ -35,10 +36,10 @@ class RecommendedBookListWidget extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -60,16 +61,16 @@ class RecommendedBookListWidget extends StatelessWidget {
                 // Book cover with gradient overlay
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
                   ),
                   child: Stack(
                     children: [
                       Hero(
                         tag: 'book-${bookName.hashCode}',
                         child: Container(
-                          width: double.infinity,
-                          height: 180,
+                          width: Get.width,
+                          height: 225,
                           decoration: BoxDecoration(
                             color: ColorRes.primaryColor.withOpacity(0.1),
                             image: imageUrl != null
@@ -114,7 +115,7 @@ class RecommendedBookListWidget extends StatelessWidget {
                 // Book information
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(3),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -123,25 +124,11 @@ class RecommendedBookListWidget extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: bookNameColor,
-                            letterSpacing: 0.2,
                           ),
                         ),
-                        if (authorName != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            authorName!,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: authorNameColor.withOpacity(0.8),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
                       ],
                     ),
                   ),

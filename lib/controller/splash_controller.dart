@@ -33,7 +33,7 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 6), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Get.off(() => const HomeScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 800));
     });
   }
