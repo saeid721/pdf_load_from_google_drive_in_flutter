@@ -8,6 +8,7 @@ import '../../global/widget/global_container.dart';
 import '../../model/model.dart';
 import '../custom_drawer_screen.dart';
 import '../general_books_screen/general_books_list_screen.dart';
+import 'category_list_screen.dart';
 import 'components/category_menu_widget.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -85,28 +86,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       onTap: () {
                         switch (index) {
                           case 0:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 1:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 2:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 3:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 4:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 5:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 6:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                           case 7:
-                            Get.to(() => const GeneralBooksListScreen());
+                            Get.to(() => const CategoryListScreen());
                             break;
                         }
                       },
