@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/pdf_controller.dart';
-import '../data/general_books_list.dart';
 import '../data/recommended_books_list.dart';
 import '../data/trending_books_list.dart';
+import '../global/constants/images.dart';
 import '../global/custom_app_bar.dart';
 import '../global/widget/global_progress_hub.dart';
-import 'general_books_screen/components/general_books_widget.dart';
+import '../global/widget/global_text.dart';
+import '../model/model.dart';
+import 'category_screen/category_screen.dart';
+import 'category_screen/components/category_menu_widget.dart';
 import 'general_books_screen/general_books_list_screen.dart';
 import '../global/constants/colors_resources.dart';
 import '../global/shimmer/shimmer_widget.dart';
@@ -30,6 +33,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PdfController pdfController = Get.put(PdfController());
+  final GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
+
+  List<GlobalMenuModel> menuItem = [
+    GlobalMenuModel(img: Images.appLogo, text: 'Dart Basic'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Dart OOP'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Advance Topics'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Dart Quiz'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Basics'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Advanced'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Quiz'),
+    GlobalMenuModel(img: Images.appLogo, text: 'Interview Questions'),
+  ];
+
   bool isLoading = true;
 
   @override
@@ -184,80 +200,192 @@ class _HomeScreenState extends State<HomeScreen> {
                                     imageUrl: book.imageUrl,
                                     bookName: book.bookName,
                                     authorName: book.authorName,
-                                    shortDescription: book.shortDescription ?? '',
+                                    shortDescription:
+                                        book.shortDescription ?? '',
                                   );
                                 }).toList(),
                               ),
                             ),
                           ),
                         ),
+
                   sizedBoxH(10),
 
-                  // General Books Section
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'General Books',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: ColorRes.primaryColor,
-                        ),
+                  // Category Section
+                  const Center(
+                    child: Text(
+                      'CATEGORY',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: ColorRes.primaryColor,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => const GeneralBooksListScreen());
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Text(
-                            'See All',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: ColorRes.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  isLoading
-                      ? _buildGeneralShimmer()
-                      : GlobalContainer(
-                          width: Get.width,
-                          color: ColorRes.backgroundColor,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: Column(
-                                children: generalBooks.map((book) {
-                                  return GeneralBooksWidget(
-                                    onTap: () {
-                                      pdfController.setPdfUrl(book.pdfUrl);
-                                      Get.to(() => UrlPdfScreen(
-                                            downloadBooks: DownloadBooks(
-                                              imageUrl: book.imageUrl,
-                                              pdfUrl: book.pdfUrl,
-                                              bookName: book.bookName,
-                                              authorName: book.authorName,
-                                              shortDescription:
-                                                  book.shortDescription ?? '',
-                                            ),
-                                          ));
-                                    },
-                                    imageUrl: book.imageUrl,
-                                    bookName: book.bookName,
-                                    authorName: book.authorName,
-                                    shortDescription: book.shortDescription ?? '',
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        ),
+                  sizedBoxH(3),
+
+                  GlobalContainer(
+                    width: Get.width,
+                    color: ColorRes.backgroundColor,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          GridView.builder(
+                              itemCount: menuItem.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 8,
+                                      crossAxisSpacing: 8,
+                                      mainAxisExtent: 110),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              itemBuilder: (ctx, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    switch (index) {
+                                      case 0:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 1:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 2:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 3:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 4:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 5:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 6:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                      case 7:
+                                        Get.to(() =>
+                                            const GeneralBooksListScreen());
+                                        break;
+                                    }
+                                  },
+                                  child: CategoryMenuWidget(
+                                    height: 50,
+                                    width: 50,
+                                    maxLines: 1,
+                                    imagePath: menuItem[index].img,
+                                    text: menuItem[index].text,
+                                    subText: menuItem[index].subText ?? "",
+                                  ),
+                                );
+                              }),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  sizedBoxH(10),
+                  Center(
+                      child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => const CategoryScreen());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorRes.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      elevation: 10,
+                      shadowColor: ColorRes.white.withOpacity(0.4),
+                    ),
+                    child: const GlobalText(
+                      str: 'See All Category',
+                      color: ColorRes.primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins',
+                    ),
+                  )),
+                  // sizedBoxH(10),
+                  //
+                  // // General Books Section
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     const Text(
+                  //       'General Books',
+                  //       style: TextStyle(
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.w600,
+                  //         color: ColorRes.primaryColor,
+                  //       ),
+                  //     ),
+                  //     InkWell(
+                  //       onTap: () {
+                  //         Get.to(() => const GeneralBooksListScreen());
+                  //       },
+                  //       child: const Padding(
+                  //         padding: EdgeInsets.only(right: 10),
+                  //         child: Text(
+                  //           'See All',
+                  //           style: TextStyle(
+                  //             fontSize: 16,
+                  //             fontWeight: FontWeight.w600,
+                  //             color: ColorRes.primaryColor,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // isLoading
+                  //     ? _buildGeneralShimmer()
+                  //     : GlobalContainer(
+                  //         width: Get.width,
+                  //         color: ColorRes.backgroundColor,
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.only(right: 5),
+                  //           child: SingleChildScrollView(
+                  //             scrollDirection: Axis.vertical,
+                  //             child: Column(
+                  //               children: generalBooks.map((book) {
+                  //                 return GeneralBooksWidget(
+                  //                   onTap: () {
+                  //                     pdfController.setPdfUrl(book.pdfUrl);
+                  //                     Get.to(() => UrlPdfScreen(
+                  //                           downloadBooks: DownloadBooks(
+                  //                             imageUrl: book.imageUrl,
+                  //                             pdfUrl: book.pdfUrl,
+                  //                             bookName: book.bookName,
+                  //                             authorName: book.authorName,
+                  //                             shortDescription:
+                  //                                 book.shortDescription ?? '',
+                  //                           ),
+                  //                         ));
+                  //                   },
+                  //                   imageUrl: book.imageUrl,
+                  //                   bookName: book.bookName,
+                  //                   authorName: book.authorName,
+                  //                   shortDescription: book.shortDescription ?? '',
+                  //                 );
+                  //               }).toList(),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
                 ],
               ),
             ),
