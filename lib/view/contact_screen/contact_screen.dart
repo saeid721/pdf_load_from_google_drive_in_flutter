@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../global/constants/colors_resources.dart';
 import '../../global/constants/images.dart';
+import '../../global/custom_app_bar.dart';
 import '../../model/model.dart';
 import '../../global/widget/global_app_bar.dart';
 import '../../global/widget/global_text.dart';
@@ -51,23 +52,14 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: GlobalAppBar(
-          title: 'Dart & Flutter Tutorial',
-          notiOnTap: () {},
-        ),
+      appBar: const CustomAppBar(
+        title: 'Dart Bangla',
       ),
-      key: drawerKey,
-      drawer: const CustomDrawerScreen(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             spacing: 5,
             children: [
-              //const SizedBox(height: 5),
               Container(
                 padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.all(10),

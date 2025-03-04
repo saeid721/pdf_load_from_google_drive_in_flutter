@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:math' as math;
+import '../../global/custom_app_bar.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -110,8 +111,8 @@ class WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bike Ride Weather Forecast'),
+      appBar: CustomAppBar(
+        title: 'Bike Ride Weather Forecast',
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
