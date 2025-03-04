@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../../global/constants/colors_resources.dart';
-import '../../../global/widget/global_image_loader.dart';
 import '../../../global/widget/global_sizedbox.dart';
 import '../../../global/widget/global_text.dart';
 
@@ -9,7 +7,7 @@ class CategoryMenuWidget extends StatelessWidget {
   final double? height;
   final double? width;
   final int? maxLines;
-  final String imagePath;
+  final String? imagePath;
   final String text;
   final String subText;
   const CategoryMenuWidget({
@@ -17,7 +15,7 @@ class CategoryMenuWidget extends StatelessWidget {
     this.height,
     this.width,
     this.maxLines,
-    required this.imagePath,
+    this.imagePath,
     required this.text,
     required this.subText,
   });
@@ -41,16 +39,16 @@ class CategoryMenuWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 18, right: 18),
-            child: GlobalImageLoader(
-              imagePath: imagePath,
-              height: height ?? 40,
-              width: width ?? 40,
-              fit: BoxFit.fill,
-            ),
-          ),
-          const SizedBox(height: 2),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 18, right: 18),
+          //   child: GlobalImageLoader(
+          //     imagePath: imagePath ?? "",
+          //     height: height ?? 20,
+          //     width: width ?? 20,
+          //     fit: BoxFit.fill,
+          //   ),
+          // ),
+          // const SizedBox(height: 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -62,7 +60,7 @@ class CategoryMenuWidget extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  maxLines: maxLines ?? 1,
+                  maxLines: maxLines ?? 3,
                 ),
               ),
               // const SizedBox(width: 5),

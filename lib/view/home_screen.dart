@@ -227,71 +227,74 @@ class _HomeScreenState extends State<HomeScreen> {
                   GlobalContainer(
                     width: Get.width,
                     color: ColorRes.backgroundColor,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          GridView.builder(
-                              itemCount: menuItem.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 8,
-                                      crossAxisSpacing: 8,
-                                      mainAxisExtent: 110),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              itemBuilder: (ctx, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    switch (index) {
-                                      case 0:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 1:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 2:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 3:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 4:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 5:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 6:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                      case 7:
-                                        Get.to(() =>
-                                            const GeneralBooksListScreen());
-                                        break;
-                                    }
-                                  },
-                                  child: CategoryMenuWidget(
-                                    height: 50,
-                                    width: 50,
-                                    maxLines: 1,
-                                    imagePath: menuItem[index].img,
-                                    text: menuItem[index].text,
-                                    subText: menuItem[index].subText ?? "",
-                                  ),
-                                );
-                              }),
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          children: [
+                            GridView.builder(
+                                itemCount: menuItem.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 8,
+                                        crossAxisSpacing: 8,
+                                        mainAxisExtent: 90),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                itemBuilder: (ctx, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      switch (index) {
+                                        case 0:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 1:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 2:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 3:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 4:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 5:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 6:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                        case 7:
+                                          Get.to(() =>
+                                              const GeneralBooksListScreen());
+                                          break;
+                                      }
+                                    },
+                                    child: CategoryMenuWidget(
+                                      // height: 30,
+                                      // width: 30,
+                                      maxLines: 3,
+                                      //imagePath: menuItem[index].img,
+                                      text: menuItem[index].text,
+                                      subText: menuItem[index].subText ?? "",
+                                    ),
+                                  );
+                                }),
+                          ],
+                        ),
                       ),
                     ),
                   ),
