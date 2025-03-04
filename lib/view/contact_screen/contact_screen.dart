@@ -93,7 +93,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   ],
                 ),
               ),
-              GlobalText(
+              const GlobalText(
                 str: "Don’t Miss Out – Follow Us for Updates",
                 color: ColorRes.primaryColor,
                 fontSize: 18,
@@ -110,7 +110,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       crossAxisCount: 2,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 8,
-                      mainAxisExtent: 50),
+                      mainAxisExtent: 55),
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   itemBuilder: (ctx, index) {
                     return GestureDetector(
