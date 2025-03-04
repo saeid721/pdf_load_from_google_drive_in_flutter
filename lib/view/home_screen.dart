@@ -36,14 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
 
   List<GlobalMenuModel> menuItem = [
-    GlobalMenuModel(img: Images.appLogo, text: 'Dart Basic'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Dart OOP'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Advance Topics'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Dart Quiz'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Basics'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Advanced'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Quiz'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Interview Questions'),
+    GlobalMenuModel(img: Images.appLogo, text: 'English Books'),
+    GlobalMenuModel(img: Images.appLogo, text: 'অনুবাদ বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'বাংলাদেশ ও মুক্তিযুদ্ধ বিষয়ক'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ইসলামিক বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'আত্মউন্নয়নমূলক বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'আত্মজীবনী ও স্মৃতিকথা'),
+    GlobalMenuModel(img: Images.appLogo, text: 'গণিত, বিজ্ঞান ও প্রযুক্তি'),
+    GlobalMenuModel(img: Images.appLogo, text: 'সায়েন্স ফিকশন / বৈজ্ঞানিক কল্পকাহিনী'),
   ];
 
   bool isLoading = true;

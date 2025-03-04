@@ -26,14 +26,28 @@ class _CategoryListScreenState extends State<CategoryListScreen>
     with SingleTickerProviderStateMixin {
 
   List<GlobalMenuModel> menuItem = [
-    GlobalMenuModel(img: Images.appLogo, text: 'Dart Basic'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Dart OOP'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Advance Topics'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Dart Quiz'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Basics'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Advanced'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Flutter Quiz'),
-    GlobalMenuModel(img: Images.appLogo, text: 'Interview Questions'),
+    GlobalMenuModel(img: Images.appLogo, text: 'English Books'),
+    GlobalMenuModel(img: Images.appLogo, text: 'অনুবাদ বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'বাংলাদেশ ও মুক্তিযুদ্ধ বিষয়ক'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ইসলামিক বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ইতিহাস ও সংস্কৃতি'),
+    GlobalMenuModel(img: Images.appLogo, text: 'আত্মউন্নয়নমূলক বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'আত্মজীবনী ও স্মৃতিকথা'),
+    GlobalMenuModel(img: Images.appLogo, text: 'গণিত, বিজ্ঞান ও প্রযুক্তি'),
+    GlobalMenuModel(img: Images.appLogo, text: 'সায়েন্স ফিকশন / বৈজ্ঞানিক কল্পকাহিনী'),
+    GlobalMenuModel(img: Images.appLogo, text: 'থ্রিলার রহস্য রোমাঞ্চ অ্যাডভেঞ্চার'),
+    GlobalMenuModel(img: Images.appLogo, text: 'গোয়েন্দা (ডিটেকটিভ)'),
+    GlobalMenuModel(img: Images.appLogo, text: 'উপন্যাস'),
+    GlobalMenuModel(img: Images.appLogo, text: 'কাব্যগ্রন্থ / কবিতা'),
+    GlobalMenuModel(img: Images.appLogo, text: 'কিশোর সাহিত্য'),
+    GlobalMenuModel(img: Images.appLogo, text: 'গল্পগ্রন্থ / গল্পের বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ধর্ম ও দর্শন'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ধর্মীয় বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'প্রবন্ধ ও গবেষণা'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ভৌতিক, হরর, ভূতের বই'),
+    GlobalMenuModel(img: Images.appLogo, text: 'ভ্রমণ কাহিনী'),
+    GlobalMenuModel(img: Images.appLogo, text: 'সাহিত্য ও ভাষা'),
+    GlobalMenuModel(img: Images.appLogo, text: 'রচনাসমগ্র / রচনাবলী / রচনা সংকলন'),
   ];
 
   @override
