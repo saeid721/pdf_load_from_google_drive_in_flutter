@@ -4,9 +4,7 @@ import '../../global/constants/colors_resources.dart';
 import '../../global/constants/images.dart';
 import '../../global/custom_app_bar.dart';
 import '../../model/model.dart';
-import '../../global/widget/global_app_bar.dart';
 import '../../global/widget/global_text.dart';
-import '../custom_drawer_screen.dart';
 import 'components/contact_widget.dart';
 import 'components/social_media_widget.dart';
 import '../social_media_screen/blogger_screen.dart';
@@ -53,7 +51,7 @@ class _ContactScreenState extends State<ContactScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        title: 'Dart Bangla',
+        title: 'flutter Bangla',
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -71,8 +69,23 @@ class _ContactScreenState extends State<ContactScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const GlobalText(
+                      str: "আস-সালামু আলাইকুম ওয়া রহমাতুল্লাহি ওয়া বারকাতুহু",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      textAlign: TextAlign.center,
+                      color: ColorRes.primaryColor,
+                    ),
+                    const SizedBox(height: 5),
+                    const GlobalText(
+                      str: """সম্মানিত পাঠক-পাঠিকা আমাদের এই অ্যাপটি আপনাদের সেবাই তৈরি করেছি। আমরা আপ্রাণ চেষ্টা করি নিরবচ্ছিন্ন সেবা দিতে। তারপরও যদি কোন সমস্যা আপনাদের চোখে পড়ে অনুগ্রহপূর্বক আমাদের ফেসবুক পেজে ম্যাসেজ করে জানাবেন। আমরা সমাধান করবো। ইন-শাহ-আল্লাহ
+সম্মানিত পাঠক-পাঠিকা অ্যাপটি যদি আপনাদের কাছে ভাল লাগে তাহলে প্লে স্টরে গিয়ে ৫ ***** স্টার  রেটিং দিয়ে সুন্দর একটি কমেন্ট করবেন সে আশাবাদী আপনাদের কাছে।
+""",
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                    ),
                     ContactDetailsWidget(
-                      name: "Dart & Flutter Tutorial",
+                      name: "flutter Bangla",
                       address: "Dhaka, Bangladesh.",
                       email: "info@flutterBangla.com",
                       phone: "+88 01738 00 00 00",
